@@ -8,6 +8,8 @@
 
 [English](./README.en.md) | [繁體中文](./README.md)
 
+https://github.com/user-attachments/assets/99b61e86-ea67-4a38-86e0-f3b193620c42
+
 ## 🎉 Overview
 A lightweight Swift wrapper built on **Apple Foundation Models** that simplifies `SystemLanguageModel`, `LanguageModelSession`, prompt validation, and both standard and streaming response workflows.
 

@@ -1,0 +1,15 @@
+{
+  "originHash" : "7c783d670eed278b81f01cb130e840dd083fc8d9b130d2b81ebdc97ea08e3253",
+  "pins" : [
+    {
+      "identity" : "wwintelligentagent",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/William-Weng/WWIntelligentAgent",
+      "state" : {
+        "revision" : "01c7a57921e61635194595785f9d51459b361f99",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
