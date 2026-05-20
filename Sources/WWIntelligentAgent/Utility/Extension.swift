@@ -34,11 +34,11 @@ extension LanguageModelSession {
     ///
     /// - Parameters:
     ///   - prompt: 原始輸入文字
-    ///   - options: 產生內容時使用的選項，預設為 `.init()`
+    ///   - optionType: 產生內容時使用的選項類型
     /// - Throws: 可能拋出提示文字驗證錯誤，或模型回應過程中的錯誤
     /// - Returns: 包含模型回應文字的結果物件
-    func respondSafely(to prompt: String, options: GenerationOptions = .init()) async throws -> LanguageModelSession.Response<String> {
-        return try await respond(to: prompt.validatedPrompt(), options: options)
+    func respondSafely(to prompt: String, optionType: WWIntelligentAgent.OptionType) async throws -> LanguageModelSession.Response<String> {
+        return try await respond(to: prompt.validatedPrompt(), options: optionType.value())
     }
     
     /// 送出經過驗證的提示文字，並以串流方式回傳模型結果
@@ -47,10 +47,10 @@ extension LanguageModelSession {
     ///
     /// - Parameters:
     ///   - prompt: 原始輸入文字
-    ///   - options: 產生內容時使用的選項，預設為 `.init()`
+    ///   - optionType: 產生內容時使用的選項類型
     /// - Throws: 可能拋出提示文字驗證錯誤，或模型回應過程中的錯誤
     /// - Returns: 逐步產生內容的回應串流
-    func streamRespondSafely(to prompt: String, options: GenerationOptions = .init()) throws -> sending LanguageModelSession.ResponseStream<String> {
-        return try streamResponse(to: prompt.validatedPrompt(), options: options)
+    func streamRespondSafely(to prompt: String, optionType: WWIntelligentAgent.OptionType) throws -> sending LanguageModelSession.ResponseStream<String> {
+        return try streamResponse(to: prompt.validatedPrompt(), options: optionType.value())
     }
 }
