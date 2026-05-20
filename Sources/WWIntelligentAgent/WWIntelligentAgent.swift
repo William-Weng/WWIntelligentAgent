@@ -66,9 +66,6 @@ public extension WWIntelligentAgent {
     /// - Throws: 當工作階段不存在、模型不可用，或提示文字為空時拋出錯誤
     /// - Returns: 可逐步接收模型回應內容的串流物件
     func streamChat(to prompt: String) async throws -> LanguageModelSession.ResponseStream<String> {
-        
-        guard !prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw CustomError.promptIsEmpty }
-        
         let session = try findSession()
         return try session.streamRespondSafely(to: prompt)
     }

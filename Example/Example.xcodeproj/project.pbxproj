@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		81E4C2112FBD5CE6006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C2102FBD5CE6006CED91 /* WWIntelligentAgent */; };
-		81E4C22C2FBD63FE006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C22B2FBD63FE006CED91 /* WWIntelligentAgent */; };
+		81E4C22F2FBD65F2006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C22E2FBD65F2006CED91 /* WWIntelligentAgent */; };
+		81E4C2322FBD661F006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C2312FBD661F006CED91 /* WWIntelligentAgent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81E4C22C2FBD63FE006CED91 /* WWIntelligentAgent in Frameworks */,
+				81E4C22F2FBD65F2006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C2112FBD5CE6006CED91 /* WWIntelligentAgent in Frameworks */,
+				81E4C2322FBD661F006CED91 /* WWIntelligentAgent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +88,8 @@
 			name = Example;
 			packageProductDependencies = (
 				81E4C2102FBD5CE6006CED91 /* WWIntelligentAgent */,
-				81E4C22B2FBD63FE006CED91 /* WWIntelligentAgent */,
+				81E4C22E2FBD65F2006CED91 /* WWIntelligentAgent */,
+				81E4C2312FBD661F006CED91 /* WWIntelligentAgent */,
 			);
 			productName = Example;
 			productReference = 817EE1FE2EB1FA050036B57C /* Example.app */;
@@ -117,7 +120,7 @@
 			mainGroup = 817EE1F52EB1FA050036B57C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				81E4C22A2FBD63FE006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */,
+				81E4C2302FBD661F006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 817EE1FF2EB1FA050036B57C /* Products */;
@@ -361,7 +364,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		81E4C22A2FBD63FE006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */ = {
+		81E4C2302FBD661F006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWIntelligentAgent";
 			requirement = {
@@ -376,9 +379,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WWIntelligentAgent;
 		};
-		81E4C22B2FBD63FE006CED91 /* WWIntelligentAgent */ = {
+		81E4C22E2FBD65F2006CED91 /* WWIntelligentAgent */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 81E4C22A2FBD63FE006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */;
+			productName = WWIntelligentAgent;
+		};
+		81E4C2312FBD661F006CED91 /* WWIntelligentAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81E4C2302FBD661F006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */;
 			productName = WWIntelligentAgent;
 		};
 /* End XCSwiftPackageProductDependency section */
