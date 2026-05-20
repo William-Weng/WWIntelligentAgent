@@ -112,9 +112,8 @@ private extension ViewController {
     }
     
     func streamChat(to prompt: String) {
-        
+    
         Task {
-            
             do {
                 for try await partial in try await agent.streamChat(to: prompt) {
                     outputTextView.text = partial.content
