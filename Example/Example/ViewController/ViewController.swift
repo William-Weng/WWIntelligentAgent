@@ -42,8 +42,8 @@ private extension ViewController {
         
         Task {
             do {
-                let response = try await agent.chat(to: prompt)
-                outputTextView.text = response.content
+                let content = try await agent.chat(to: prompt)
+                outputTextView.text = content
             } catch {
                 print(error)
             }

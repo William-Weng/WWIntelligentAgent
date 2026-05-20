@@ -10,12 +10,11 @@ import FoundationModels
 /// 一個簡單的智慧代理包裝器，用來管理 `LanguageModelSession` 的建立與對話流程
 ///
 /// 此類別負責保存模型、系統指令與工具設定，並提供一般回應與串流回應兩種呼叫方式
-@MainActor
 open class WWIntelligentAgent {
     
     public let model: SystemLanguageModel                   // 目前使用的系統語言模型
     
-    private var session: LanguageModelSession?              // 目前建立的語言模型工作階段
+    private var session: Session?                           // 目前建立的語言模型工作階段
     private var instructions: String?                       // 套用在工作階段上的系統指令
     private var tools: [any Tool] = .init()                 // 套用在工作階段上的工具列表
     private var optionType: OptionType = .default           // 預設的生成模式選項
@@ -41,7 +40,7 @@ public extension WWIntelligentAgent {
     /// - Parameters:
     ///   - instructions: 要提供給模型的系統指令，預設為 `nil`
     ///   - tools: 要提供給模型使用的工具列表，預設為空陣列
-    ///   - optionType: 預設的生成模式選項，預設為 `default`
+    ///   - optionType: 預設的生成模式選項，預設為 `.default`
     func configure(with instructions: String?, tools: [any Tool] = [], optionType: OptionType = .default) {
         
         self.instructions = instructions
@@ -57,10 +56,10 @@ public extension WWIntelligentAgent {
     ///
     /// - Parameter prompt: 要送給模型的提示文字
     /// - Throws: 當工作階段不存在、模型不可用，或提示文字為空時拋出錯誤
-    /// - Returns: 包含模型完整回應內容的結果物件
-    func chat(to prompt: String) async throws -> LanguageModelSession.Response<String> {
+    /// - Returns: 回應內容文字
+    func chat(to prompt: String) async throws -> String {
         let session = try findSession()
-        return try await session.respondSafely(to: prompt, optionType: optionType)
+        return try await session.chat(to: prompt, optionType: optionType)
     }
     
     /// 傳送提示文字給模型，並以串流方式取得回應結果
@@ -70,9 +69,9 @@ public extension WWIntelligentAgent {
     /// - Parameter prompt: 要送給模型的提示文字
     /// - Throws: 當工作階段不存在、模型不可用，或提示文字為空時拋出錯誤
     /// - Returns: 可逐步接收模型回應內容的串流物件
-    func streamChat(to prompt: String) async throws -> LanguageModelSession.ResponseStream<String> {
+    func streamChat(to prompt: String) async throws -> sending LanguageModelSession.ResponseStream<String> {
         let session = try findSession()
-        return try session.streamRespondSafely(to: prompt, optionType: optionType)
+        return try await session.streamChat(to: prompt, optionType: optionType)
     }
 }
 
@@ -83,7 +82,7 @@ private extension WWIntelligentAgent {
     ///
     /// 當設定內容變更時，應重新呼叫此方法以確保 session 使用的是最新狀態
     func rebuildSession() {
-        session = .init(model: model, tools: tools, instructions: instructions)
+        session = Session.init(session: .init(model: model, tools: tools, instructions: instructions))
     }
     
     /// 取得目前可用的工作階段
@@ -92,7 +91,7 @@ private extension WWIntelligentAgent {
     ///
     /// - Throws: 當工作階段不存在或模型不可用時拋出錯誤
     /// - Returns: 一個可使用的 `LanguageModelSession`
-    func findSession() throws -> LanguageModelSession {
+    func findSession() throws -> Session {
         
         guard let session else { throw CustomError.sessionNotFound }
         guard model.isAvailable else { throw CustomError.modelUnavailable }
