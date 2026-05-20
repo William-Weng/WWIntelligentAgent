@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="81f-Hu-1Jt">
+                                <rect key="frame" x="16" y="134" width="361" height="584"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-gy-IAe">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="260"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <mutableString key="text">Apple Intelligence simplifies your everyday communication and helps you stay focused. Communicate across languages with Live Translation. Strike just the right tone with Writing Tools. And minimize distractions with prioritized notifications.
+
+Create fun, original images with Image Playground right in your apps or its own dedicated app. You can try out styles like animation, illustration, and sketch and discover additional ChatGPT styles. Turn a rough sketch into a related image that complements your notes with Image Wand. Craft a custom memory movie in the Photos app. And make images inspired by your friends using Genmoji.</mutableString>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9jX-ay-d7Y">
+                                        <rect key="frame" x="0.0" y="276" width="361" height="260"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qD4-aN-EXi">
+                                        <rect key="frame" x="0.0" y="552" width="361" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQZ-nV-9no">
+                                                <rect key="frame" x="0.0" y="0.0" width="284" height="32"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Click"/>
+                                                <connections>
+                                                    <action selector="chatAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6pb-tF-2f8"/>
+                                                </connections>
+                                            </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MDk-Zz-oVi">
+                                                <rect key="frame" x="300" y="0.0" width="63" height="32"/>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="dwQ-7j-Rcx"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DgI-gy-IAe" firstAttribute="height" secondItem="9jX-ay-d7Y" secondAttribute="height" id="mab-dR-OzA"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="81f-Hu-1Jt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5DL-58-aJM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="81f-Hu-1Jt" secondAttribute="trailing" constant="16" id="9RJ-vk-1i8"/>
+                            <constraint firstItem="81f-Hu-1Jt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EYp-Ae-Ku6"/>
+                            <constraint firstItem="81f-Hu-1Jt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="aOT-wC-m5p"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3cu-Z2-Jl4"/>
+                    <connections>
+                        <outlet property="inputTextView" destination="DgI-gy-IAe" id="mi2-6w-EJ1"/>
+                        <outlet property="outputTextView" destination="9jX-ay-d7Y" id="4rJ-ro-NiA"/>
+                        <outlet property="streamSwitch" destination="MDk-Zz-oVi" id="I9I-Wz-WKP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1066.4122137404579" y="130.98591549295776"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

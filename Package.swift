@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "WWIntelligentAgent", targets: ["WWIntelligentAgent"]),
     ],
     targets: [
-        .target(name: "WWIntelligentAgent"),
+        .target(name: "WWIntelligentAgent", resources: [.copy("Privacy")]),
     ],
     swiftLanguageModes: [
         .v6
