@@ -38,7 +38,7 @@ extension LanguageModelSession {
     /// - Throws: 可能拋出提示文字驗證錯誤，或模型回應過程中的錯誤
     /// - Returns: 包含模型回應文字的結果物件
     func respondSafely(to prompt: String, optionType: WWIntelligentAgent.OptionType) async throws -> LanguageModelSession.Response<String> {
-        return try await respond(to: prompt.validatedPrompt(), options: optionType.value())
+        try await respond(to: prompt.validatedPrompt(), options: optionType.value())
     }
     
     /// 送出經過驗證的提示文字，並以串流方式回傳模型結果
@@ -51,6 +51,6 @@ extension LanguageModelSession {
     /// - Throws: 可能拋出提示文字驗證錯誤，或模型回應過程中的錯誤
     /// - Returns: 逐步產生內容的回應串流
     func streamRespondSafely(to prompt: String, optionType: WWIntelligentAgent.OptionType) throws -> sending LanguageModelSession.ResponseStream<String> {
-        return try streamResponse(to: prompt.validatedPrompt(), options: optionType.value())
+        try streamResponse(to: prompt.validatedPrompt(), options: optionType.value())
     }
 }

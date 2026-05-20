@@ -15,8 +15,10 @@ extension WWIntelligentAgent {
     /// 此型別用來隔離語言模型工作階段的存取，避免多個並行工作同時操作，同一個 `LanguageModelSession`，以符合 Swift 6 的安全並行模型。
     actor Session {
         
-        private let session: LanguageModelSession       // 目前建立的語言模型工作階段
-
+        private let session: LanguageModelSession
+        
+        /// 初始化
+        /// - Parameter session: 目前建立的語言模型工作階段
         init(session: LanguageModelSession) {
             self.session = session
         }

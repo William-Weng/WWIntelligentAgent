@@ -82,7 +82,7 @@ private extension WWIntelligentAgent {
     ///
     /// 當設定內容變更時，應重新呼叫此方法以確保 session 使用的是最新狀態
     func rebuildSession() {
-        session = Session.init(session: .init(model: model, tools: tools, instructions: instructions))
+        session = .init(session: .init(model: model, tools: tools, instructions: instructions))
     }
     
     /// 取得目前可用的工作階段
