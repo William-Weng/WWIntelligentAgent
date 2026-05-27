@@ -59,7 +59,7 @@ https://github.com/user-attachments/assets/99b61e86-ea67-4a38-86e0-f3b193620c42
 | API | 說明 |
 |---|---|
 | `init(model:)` | 建立一個智慧代理`實例` |
-| `configure(with:tools:optionType:)` | 設定系統指令與工具，並重新建立`工作階段`  |
+| `configure(with:tools:optionType:)` | 設定系統指令與工具，並重新建立`工作階段` |
 | `chat(to:)` | 傳送`提示文字`給模型，並取得完整`回應結果` |
 | `streamChat(to:)` | 傳送`提示文字`給模型，並以`串流方式`取得回應結果 |
 

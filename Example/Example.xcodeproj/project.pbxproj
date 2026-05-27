@@ -13,7 +13,7 @@
 		81E4C23E2FBD8E0A006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C23D2FBD8E0A006CED91 /* WWIntelligentAgent */; };
 		81E4C2442FBD9BFF006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C2432FBD9BFF006CED91 /* WWIntelligentAgent */; };
 		81E4C24A2FBD9CF1006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C2492FBD9CF1006CED91 /* WWIntelligentAgent */; };
-		81E4C24D2FBD9F97006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C24C2FBD9F97006CED91 /* WWIntelligentAgent */; };
+		81E4C2502FBD9FBF006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C24F2FBD9FBF006CED91 /* WWIntelligentAgent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81E4C22F2FBD65F2006CED91 /* WWIntelligentAgent in Frameworks */,
-				81E4C24D2FBD9F97006CED91 /* WWIntelligentAgent in Frameworks */,
+				81E4C2502FBD9FBF006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C2112FBD5CE6006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C24A2FBD9CF1006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C2442FBD9BFF006CED91 /* WWIntelligentAgent in Frameworks */,
@@ -101,7 +101,7 @@
 				81E4C23D2FBD8E0A006CED91 /* WWIntelligentAgent */,
 				81E4C2432FBD9BFF006CED91 /* WWIntelligentAgent */,
 				81E4C2492FBD9CF1006CED91 /* WWIntelligentAgent */,
-				81E4C24C2FBD9F97006CED91 /* WWIntelligentAgent */,
+				81E4C24F2FBD9FBF006CED91 /* WWIntelligentAgent */,
 			);
 			productName = Example;
 			productReference = 817EE1FE2EB1FA050036B57C /* Example.app */;
@@ -115,7 +115,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					817EE1FD2EB1FA050036B57C = {
 						CreatedOnToolsVersion = 16.4;
@@ -132,7 +132,7 @@
 			mainGroup = 817EE1F52EB1FA050036B57C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				81E4C24B2FBD9F97006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */,
+				81E4C24E2FBD9FBF006CED91 /* XCLocalSwiftPackageReference "../../@WWIntelligentAgent" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 817EE1FF2EB1FA050036B57C /* Products */;
@@ -175,6 +175,7 @@
 				DEVELOPMENT_TEAM = 4Q5CYDAG3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Setting/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -208,6 +209,7 @@
 				DEVELOPMENT_TEAM = 4Q5CYDAG3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Setting/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -290,6 +292,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -347,6 +350,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -375,16 +379,12 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		81E4C24B2FBD9F97006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/William-Weng/WWIntelligentAgent";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.1.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		81E4C24E2FBD9FBF006CED91 /* XCLocalSwiftPackageReference "../../@WWIntelligentAgent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../@WWIntelligentAgent";
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		81E4C2102FBD5CE6006CED91 /* WWIntelligentAgent */ = {
@@ -411,9 +411,8 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WWIntelligentAgent;
 		};
-		81E4C24C2FBD9F97006CED91 /* WWIntelligentAgent */ = {
+		81E4C24F2FBD9FBF006CED91 /* WWIntelligentAgent */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 81E4C24B2FBD9F97006CED91 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */;
 			productName = WWIntelligentAgent;
 		};
 /* End XCSwiftPackageProductDependency section */

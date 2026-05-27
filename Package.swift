@@ -11,8 +11,15 @@ let package = Package(
     products: [
         .library(name: "WWIntelligentAgent", targets: ["WWIntelligentAgent"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/William-Weng/WWSQLite3Manager", .upToNextMinor(from: "2.2.2"))
+    ],
     targets: [
-        .target(name: "WWIntelligentAgent", resources: [.copy("Privacy")]),
+        .target(name: "WWIntelligentAgent",
+            dependencies: [
+                .product(name: "WWSQLite3Manager", package: "WWSQLite3Manager")
+            ],
+            resources: [.copy("Privacy")]),
     ],
     swiftLanguageModes: [
         .v6
