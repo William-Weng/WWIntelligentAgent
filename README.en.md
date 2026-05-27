@@ -34,7 +34,7 @@ This wrapper separates common preflight checks into focused methods such as sess
 Add the package to your `Package.swift`:
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.1.0")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.0")])
 ```
 
 Then add it to your target:
@@ -50,18 +50,31 @@ If you are using Xcode, you can also add the GitHub repository through **File > 
 
 ## 📖 Public Properties
 
-| Property | Description |
+| Property (WWIntelligentAgent) | Description |
 |---|---|
 | `model` | The current `system language model` in use |
 
 ## 🛠️ Public APIs
 
-| API | Description |
+| API (WWIntelligentAgent) | Description |
 |---|---|
 | `init(model:)` | Creates an intelligent agent `instance` |
 | `configure(with:tools:)` | Configures instructions and tools, then rebuilds the `session` |
 | `chat(to:)` | Sends a `prompt` to the model and returns a complete `response` |
 | `streamChat(to:)` | Sends a `prompt` to the model and returns a `streaming response` |
+
+| API (MemoryManager) | Description |
+|---|---|
+| `init(databaseName:tableName:)` | Creates a MemoryManager instance and specifies the database name and table name. |
+| `connect()` | Connects to the SQLite database. |
+| `createTableIfNotExists()` | Creates the memory table if it does not already exist. |
+| `saveMemory(sessionId:role:content:metadata:)` | Saves a single memory record. |
+| `memoryHistory(sessionId:limit:)` | Retrieves the memory history for a specified session. |
+| `recentMemories(limit:)` | Retrieves the most recent N memory records. |
+| `searchMemories(keyword:sessionId:limit:)` | Searches memories by keyword, optionally limited to a specific session. |
+| `clearSessionMemory(sessionId:)` | Clears all memories for a specific session. |
+| `deleteExpiredMemories(olderThanDays:)` | Deletes expired memories older than the specified number of days. |
+| `close()` | Closes the database connection. |
 
 ## Example
 

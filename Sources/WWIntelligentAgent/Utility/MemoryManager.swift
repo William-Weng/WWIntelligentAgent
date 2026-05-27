@@ -9,7 +9,7 @@ import Foundation
 import WWSQLite3Manager
 
 // MARK: - Session
-extension WWIntelligentAgent {
+public extension WWIntelligentAgent {
     
     /// Agent 記憶管理器（中期記憶：SQLite 持久化）
     class MemoryManager {
@@ -19,7 +19,7 @@ extension WWIntelligentAgent {
         
         private var database: WWSQLite3Manager.Database?
         
-        init(databaseName: String = "agent_memory.db", tableName: String = "agent_memories") {
+        public init(databaseName: String = "agent_memory.db", tableName: String = "agent_memories") {
             self.databaseName = databaseName
             self.tableName = tableName
         }
@@ -27,7 +27,7 @@ extension WWIntelligentAgent {
 }
 
 // MARK: - Initialization
-extension WWIntelligentAgent.MemoryManager {
+public extension WWIntelligentAgent.MemoryManager {
     
     /// 初始化並連接資料庫
     /// - Returns: 是否成功連接
@@ -54,7 +54,7 @@ extension WWIntelligentAgent.MemoryManager {
 }
  
 // MARK: - CRUD Operations
-extension WWIntelligentAgent.MemoryManager {
+public extension WWIntelligentAgent.MemoryManager {
     
     /// 儲存單筆記憶
     /// - Parameters:
@@ -63,6 +63,7 @@ extension WWIntelligentAgent.MemoryManager {
     ///   - content: 訊息內容
     ///   - metadata: 額外資訊（JSON 格式，可選）
     /// - Returns: 是否成功儲存
+    @discardableResult
     func saveMemory(sessionId: String, role: String, content: String, metadata: String? = nil) throws -> String {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
@@ -87,12 +88,12 @@ extension WWIntelligentAgent.MemoryManager {
     ///   - sessionId: 會話 ID
     ///   - limit: 最大筆數（nil = 全部）
     /// - Returns: 記憶陣列
-    func memoryHistory(sessionId: String, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory] {
+    func memoryHistory(sessionId: String, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory]? {
         
         do {
             let array = try getMemoryHistory(sessionId: sessionId, limit: limit)
             let memories = array._jsonClass(for: [WWIntelligentAgent.Memory].self)
-            return memories ?? []
+            return memories
         } catch {
             throw error
         }
@@ -102,7 +103,7 @@ extension WWIntelligentAgent.MemoryManager {
     /// - Parameters:
     ///   - limit: 最大筆數（預設 50）
     /// - Returns: 記憶陣列
-    func recentMemories(limit: Int = 50) throws -> [WWIntelligentAgent.Memory] {
+    func recentMemories(limit: Int = 50) throws -> [WWIntelligentAgent.Memory]? {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
 
@@ -111,8 +112,7 @@ extension WWIntelligentAgent.MemoryManager {
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, orderBy: orderBy, limit: limitCondition)
         
         let memories = result.array._jsonClass(for: [WWIntelligentAgent.Memory].self)
-        
-        return memories ?? []
+        return memories
     }
     
     /// 搜尋包含關鍵字的名記憶（使用 LIKE）
@@ -121,7 +121,7 @@ extension WWIntelligentAgent.MemoryManager {
     ///   - sessionId: 可選的會話 ID 過濾
     ///   - limit: 最大筆數
     /// - Returns: 符合的記憶陣列
-    func searchMemories(keyword: String, sessionId: String? = nil, limit: Int = 20) throws -> [WWIntelligentAgent.Memory] {
+    func searchMemories(keyword: String, sessionId: String? = nil, limit: Int = 20) throws -> [WWIntelligentAgent.Memory]? {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
 
@@ -135,7 +135,7 @@ extension WWIntelligentAgent.MemoryManager {
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, where: whereCondition, orderBy: orderBy, limit: limitCondition)
         let memories = result.array._jsonClass(for: [WWIntelligentAgent.Memory].self)
         
-        return memories ?? []
+        return memories
     }
     
     /// 清除某會話的所有記憶

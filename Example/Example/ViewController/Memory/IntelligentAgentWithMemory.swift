@@ -9,16 +9,17 @@ import Foundation
 import WWIntelligentAgent
 
 /// 整合記憶功能的 IntelligentAgent
-public class IntelligentAgentWithMemory {
+class IntelligentAgentWithMemory {
     
     private let agent: WWIntelligentAgent
-    private let memoryManager = WWIntelligentAgent.MemoryManager()
+    private let memoryManager: WWIntelligentAgent.MemoryManager
     private let currentSessionId: String
     
-    public init(agent: WWIntelligentAgent, sessionId: String? = nil) throws {
+    init(agent: WWIntelligentAgent, sessionId: String? = nil) throws {
         
         self.agent = agent
         self.currentSessionId = sessionId ?? "session_\(UUID().uuidString)"
+        self.memoryManager = .init()
         
         do {
             try setupMemory()
@@ -27,22 +28,20 @@ public class IntelligentAgentWithMemory {
         }
     }
     
-    private func setupMemory() throws {
-        
-        do {
-            try memoryManager.connect()
-            try memoryManager.createTableIfNotExists()
-        } catch {
-            throw error
-        }
+    deinit {
+        try? memoryManager.close()
     }
+}
+
+// MARK: - 公用工具
+extension IntelligentAgentWithMemory {
     
     /// 聊天並自動保存記憶 (取得最近 10 筆對話歷史)
-    public func chat(_ userMessage: String) async throws -> String? {
+    func chat(_ userMessage: String) async throws -> String? {
         
         do {
             
-            let history = try memoryManager.memoryHistory(sessionId: currentSessionId, limit: 10)
+            let history = try memoryManager.memoryHistory(sessionId: currentSessionId, limit: 10) ?? []
             let recentContext = history.map { "\($0.role): \($0.content)" }.joined(separator: "\n")
             
             try memoryManager.saveMemory(sessionId: currentSessionId, role: "user", content: userMessage)
@@ -55,10 +54,8 @@ public class IntelligentAgentWithMemory {
             Assistant:
             """
             
-            print(prompt)
-            
             let response = try await agent.chat(to: prompt)
-            try memoryManager.saveMemory(sessionId: currentSessionId, role: "assistant", content: response ?? "")
+            try memoryManager.saveMemory(sessionId: currentSessionId, role: "assistant", content: response)
             
             return response
             
@@ -71,13 +68,24 @@ public class IntelligentAgentWithMemory {
     func searchMemory(keyword: String) throws -> [WWIntelligentAgent.Memory] {
         
         do {
-            return try memoryManager.searchMemories(keyword: keyword, sessionId: currentSessionId)
+            return try memoryManager.searchMemories(keyword: keyword, sessionId: currentSessionId) ?? []
         } catch {
             throw error
         }
     }
+}
+
+// MARK: - 小工具
+private extension IntelligentAgentWithMemory {
     
-    deinit {
-        try? memoryManager.close()
+    /// 設定SQLite資料庫
+    func setupMemory() throws {
+        
+        do {
+            try memoryManager.connect()
+            try memoryManager.createTableIfNotExists()
+        } catch {
+            throw error
+        }
     }
 }

@@ -1,13 +1,13 @@
 {
-  "originHash" : "713f6778c99cd40aeaa54f779d70fd80b8607be6e2039b7dd1cea387b4e04b92",
+  "originHash" : "7c783d670eed278b81f01cb130e840dd083fc8d9b130d2b81ebdc97ea08e3253",
   "pins" : [
     {
-      "identity" : "wwsqlite3manager",
+      "identity" : "wwintelligentagent",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/William-Weng/WWSQLite3Manager",
+      "location" : "https://github.com/William-Weng/WWIntelligentAgent",
       "state" : {
-        "revision" : "b2b984c645659cb396ebdbda7f3eeba19a46dfda",
-        "version" : "2.2.2"
+        "revision" : "43890ca894357320f98a146f8df8ded60359181f",
+        "version" : "1.1.0"
       }
     }
   ],

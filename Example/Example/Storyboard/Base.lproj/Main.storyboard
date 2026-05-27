@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M52-ND-hPc">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -17,27 +17,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="81f-Hu-1Jt">
-                                <rect key="frame" x="16" y="134" width="361" height="584"/>
+                                <rect key="frame" x="16" y="150" width="361" height="552"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-gy-IAe">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="260"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <mutableString key="text">Apple Intelligence simplifies your everyday communication and helps you stay focused. Communicate across languages with Live Translation. Strike just the right tone with Writing Tools. And minimize distractions with prioritized notifications.
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="244"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Apple Intelligence simplifies your everyday communication and helps you stay focused. Communicate across languages with Live Translation. Strike just the right tone with Writing Tools. And minimize distractions with prioritized notifications.
 
-Create fun, original images with Image Playground right in your apps or its own dedicated app. You can try out styles like animation, illustration, and sketch and discover additional ChatGPT styles. Turn a rough sketch into a related image that complements your notes with Image Wand. Craft a custom memory movie in the Photos app. And make images inspired by your friends using Genmoji.</mutableString>
-                                        <color key="textColor" systemColor="labelColor"/>
+Create fun, original images with Image Playground right in your apps or its own dedicated app. You can try out styles like animation, illustration, and sketch and discover additional ChatGPT styles. Turn a rough sketch into a related image that complements your notes with Image Wand. Craft a custom memory movie in the Photos app. And make images inspired by your friends using Genmoji.</string>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9jX-ay-d7Y">
-                                        <rect key="frame" x="0.0" y="276" width="361" height="260"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
+                                        <rect key="frame" x="0.0" y="260" width="361" height="244"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qD4-aN-EXi">
-                                        <rect key="frame" x="0.0" y="552" width="361" height="32"/>
+                                        <rect key="frame" x="0.0" y="520" width="361" height="32"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQZ-nV-9no">
                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="32"/>
@@ -61,14 +61,15 @@ Create fun, original images with Image Playground right in your apps or its own 
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstItem="81f-Hu-1Jt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5DL-58-aJM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="81f-Hu-1Jt" secondAttribute="trailing" constant="16" id="9RJ-vk-1i8"/>
                             <constraint firstItem="81f-Hu-1Jt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EYp-Ae-Ku6"/>
-                            <constraint firstItem="81f-Hu-1Jt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="aOT-wC-m5p"/>
+                            <constraint firstItem="81f-Hu-1Jt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="aOT-wC-m5p"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="qMl-fi-0Te"/>
                     <navigationItem key="navigationItem" id="3cu-Z2-Jl4"/>
                     <connections>
                         <outlet property="inputTextView" destination="DgI-gy-IAe" id="mi2-6w-EJ1"/>
@@ -78,15 +79,99 @@ Create fun, original images with Image Playground right in your apps or its own 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="553" y="934"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="SSb-23-CUr">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="M52-ND-hPc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Orh-VK-yMP">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8ME-PV-Z04"/>
+                        <segue destination="t6s-zs-EKZ" kind="relationship" relationship="viewControllers" id="Zfh-rJ-PU8"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FZN-o3-ZzY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="130.98591549295776"/>
+        </scene>
+        <!--Memory View Controller-->
+        <scene sceneID="Q0O-7Z-pd6">
+            <objects>
+                <viewController id="t6s-zs-EKZ" customClass="MemoryViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xlE-kM-mal">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WLj-vn-Q6Y">
+                                <rect key="frame" x="16" y="150" width="361" height="552"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Zw-xc-07Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="244"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NYk-oV-ip0">
+                                        <rect key="frame" x="0.0" y="260" width="361" height="244"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-FA-oG5">
+                                        <rect key="frame" x="0.0" y="520" width="361" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztv-CO-uuz">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="32"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Click"/>
+                                                <connections>
+                                                    <action selector="chatAction:" destination="t6s-zs-EKZ" eventType="touchUpInside" id="IW9-bc-rL9"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="az5-Ar-Xs6"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8Zw-xc-07Q" firstAttribute="height" secondItem="NYk-oV-ip0" secondAttribute="height" id="2I1-nc-bbw"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0im-nv-SpI"/>
+                        <color key="backgroundColor" systemColor="systemMintColor"/>
+                        <constraints>
+                            <constraint firstItem="0im-nv-SpI" firstAttribute="trailing" secondItem="WLj-vn-Q6Y" secondAttribute="trailing" constant="16" id="4cw-Ib-Epe"/>
+                            <constraint firstItem="WLj-vn-Q6Y" firstAttribute="top" secondItem="0im-nv-SpI" secondAttribute="top" constant="32" id="6yT-gZ-8UQ"/>
+                            <constraint firstItem="WLj-vn-Q6Y" firstAttribute="centerX" secondItem="xlE-kM-mal" secondAttribute="centerX" id="EU0-Wq-J93"/>
+                            <constraint firstItem="WLj-vn-Q6Y" firstAttribute="centerY" secondItem="xlE-kM-mal" secondAttribute="centerY" id="YXC-WJ-MKt"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="topRated" id="NZt-jq-4Uq"/>
+                    <navigationItem key="navigationItem" id="w5l-8p-Yte"/>
+                    <connections>
+                        <outlet property="inputTextView" destination="8Zw-xc-07Q" id="r12-sY-XnL"/>
+                        <outlet property="outputTextView" destination="NYk-oV-ip0" id="hIC-ns-RBC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVX-cX-HHa" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1602" y="934"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

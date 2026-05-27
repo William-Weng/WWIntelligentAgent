@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/99b61e86-ea67-4a38-86e0-f3b193620c42
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.1.0")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.0")])
 ```
 
 然後在 target 中加入：
@@ -50,18 +50,31 @@ https://github.com/user-attachments/assets/99b61e86-ea67-4a38-86e0-f3b193620c42
 
 ## 📖 公開屬性
 
-| 屬性 | 說明 |
+| 屬性 (WWIntelligentAgent) | 說明 |
 |---|---|
 | `model` | 目前使用的`系統語言模型` |
 
 ## 🛠️ 公開 API
 
-| API | 說明 |
+| API (WWIntelligentAgent) | 說明 |
 |---|---|
 | `init(model:)` | 建立一個智慧代理`實例` |
 | `configure(with:tools:optionType:)` | 設定系統指令與工具，並重新建立`工作階段` |
 | `chat(to:)` | 傳送`提示文字`給模型，並取得完整`回應結果` |
 | `streamChat(to:)` | 傳送`提示文字`給模型，並以`串流方式`取得回應結果 |
+
+| API (MemoryManager) | 說明 |
+|---|---|
+| `init(databaseName:tableName:)` | 建立一個 MemoryManager 實例，並指定資料庫名稱與資料表名稱 |
+| `connect()` | 連接 SQLite 資料庫 |
+| `createTableIfNotExists()` | 建立記憶資料表（若尚未存在）|
+| `saveMemory(sessionId:role:content:metadata:)` | 儲存單筆記憶資料 |
+| `memoryHistory(sessionId:limit:)` | 取得指定會話的記憶歷史 |
+| `recentMemories(limit:)` | 取得最近 N 筆記憶 |
+| `searchMemories(keyword:sessionId:limit:)` | 依關鍵字搜尋記憶，可選擇限定會話 |
+| `clearSessionMemory(sessionId:)` | 清除某個會話的所有記憶 |
+| `deleteExpiredMemories(olderThanDays:)` | 刪除超過指定天數的過期記憶 |
+| `close()` | 關閉資料庫連線 |
 
 ## 🚀 範例程式
 
