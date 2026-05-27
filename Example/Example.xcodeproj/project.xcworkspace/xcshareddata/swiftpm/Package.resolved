@@ -6,8 +6,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWIntelligentAgent",
       "state" : {
-        "revision" : "43890ca894357320f98a146f8df8ded60359181f",
-        "version" : "1.1.0"
+        "revision" : "ddc04952a56d38b721f3dc04c38d2a3fae777ce0",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "wwsqlite3manager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/William-Weng/WWSQLite3Manager",
+      "state" : {
+        "revision" : "b2b984c645659cb396ebdbda7f3eeba19a46dfda",
+        "version" : "2.2.2"
       }
     }
   ],

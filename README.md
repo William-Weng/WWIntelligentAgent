@@ -8,7 +8,7 @@
 
 [English](./README.en.md) | [繁體中文](./README.md)
 
-https://github.com/user-attachments/assets/99b61e86-ea67-4a38-86e0-f3b193620c42
+https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 
 ## 🎉  相關說明
 一個以 **Apple Foundation Models** 為基礎的輕量級 Swift 包裝器，用來簡化 `SystemLanguageModel`、`LanguageModelSession`、提示文字驗證，以及一般回應與串流回應的呼叫流程。
