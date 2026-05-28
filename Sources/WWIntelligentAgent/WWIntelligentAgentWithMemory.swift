@@ -40,7 +40,7 @@ open class WWIntelligentAgentWithMemory {
 // MARK: - 公用工具
 public extension WWIntelligentAgentWithMemory {
     
-    /// 傳送提示文字給模型，並取得完整回應結果，自動保存記憶
+    /// 傳送提示文字給模型，並取得完整回應結果 + 自動保存User記憶
     /// - Parameters:
     ///   - prompt: 要送給模型的提示文字
     ///   - limit: 取得最近對話歷史筆數
@@ -50,31 +50,30 @@ public extension WWIntelligentAgentWithMemory {
         let historyPrompt = try combineHistoryPrompt(to: prompt, limit: limit)
         let response = try await agent.chat(to: historyPrompt)
         
-        try manager.saveMemory(sessionId: currentSessionId, role: .assistant, content: response)
-        
         return response
     }
     
-    /// 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶
+    /// 傳送提示文字給模型，以串流方式取得回應 + 自動保存User記憶
     /// - Parameters:
     ///   - prompt: 要送給模型的提示文字
     ///   - limit: 取得最近對話歷史筆數
-    ///   - onUpdate: 每個 chunk 回傳給 UI 的 callback（可以即時更新）
     /// - Throws: 錯誤
-    func streamChat(to prompt: String, limit: Int = 10, onUpdate: @escaping (LanguageModelSession.ResponseStream<String>.Snapshot) -> Void) async throws {
-        
+    func streamChat(to prompt: String, limit: Int = 10) async throws -> sending LanguageModelSession.ResponseStream<String> {
         let historyPrompt = try combineHistoryPrompt(to: prompt, limit: limit)
-        var response: LanguageModelSession.ResponseStream<String>.Snapshot!
-        
-        for try await chunk in try await agent.streamChat(to: historyPrompt) {
-            response = chunk
-            onUpdate(response)
-        }
-        
-        try manager.saveMemory(sessionId: currentSessionId, role: .assistant, content: response.content)
+        return try await agent.streamChat(to: historyPrompt)
+    }
+
+    /// 搜尋歷史對話記憶
+    /// - Parameter content: AI 助理回應的完整文字內容
+    /// - Throws: 當資料庫寫入失敗或工作階段無效時拋出錯誤
+    func saveAssistantMemory(_ response: String) throws {
+        try manager.saveMemory(sessionId: currentSessionId, role: .assistant, content: response)
     }
     
-    /// 搜尋記憶
+    /// 搜尋歷史對話記憶
+    /// - Parameter keyword: 要檢索的關鍵字
+    /// - Throws: 當檢索失敗或連線中斷時拋出錯誤
+    /// - Returns: 符合關鍵字條件的歷史記憶列表
     func searchMemory(keyword: String) throws -> [WWIntelligentAgent.Memory] {
         return try manager.searchMemories(keyword: keyword, sessionId: currentSessionId) ?? []
     }

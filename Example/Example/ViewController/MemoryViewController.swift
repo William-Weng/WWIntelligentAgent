@@ -12,7 +12,8 @@ final class MemoryViewController: UIViewController {
         
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var outputTextView: UITextView!
-    
+    @IBOutlet weak var streamSwitch: UISwitch!
+
     private let sessionId = "session_E7B3B043-5A68-4633-AAF6-0C8D79E4DE48"
     
     private var agent: WWIntelligentAgentWithMemory!
@@ -37,9 +38,9 @@ final class MemoryViewController: UIViewController {
         guard let prompt = messages.popLast() else { return }
         
         inputTextView.text = prompt
-        chat(to: prompt)
         
-        // Task { try? await streamChat(to: prompt) }
+        if !streamSwitch.isOn { chat(to: prompt); return }
+        Task { try? await streamChat(to: prompt) }
     }
 }
 
@@ -57,15 +58,19 @@ private extension MemoryViewController {
     func chat(to prompt: String) {
         
         Task {
-            let response = try? await agent.chat(to: prompt)
+            let response = try await agent.chat(to: prompt)
             outputTextView.text = response
+            
+            try agent.saveAssistantMemory(response)
         }
     }
     
     func streamChat(to prompt: String) async throws {
-        
-        try? await agent.streamChat(to: prompt) { snapshot in
+                
+        for try await snapshot in try await agent.streamChat(to: prompt) {
             Task { @MainActor in self.outputTextView.text = snapshot.content }
         }
+        
+        if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
     }
 }

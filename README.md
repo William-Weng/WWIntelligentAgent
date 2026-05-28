@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.1")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.2")])
 ```
 
 然後在 target 中加入：
@@ -81,8 +81,10 @@ https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 | `init(agent:sessionId:historyPrefixWord:)` | 初始化含記憶功能的Agent |
 | `chat(to:limit:)` | 傳送提示文字給模型，並取得完整回應結果，自動保存記憶 |
 | `streamChat(to:limit:onUpdate:)` | 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶 |
+| `saveAssistantMemory(_:)` | 儲存 AI 助理的對話記憶 |
+| `searchMemory(keyword:)` | 搜尋歷史對話記憶 |
 
-## 🚀 範例程式
+## 🚀 範例程式 1
 
 ```swift
 import UIKit
@@ -141,6 +143,80 @@ private extension ViewController {
                 print(error)
             }
         }
+    }
+}
+```
+
+## 🚀 範例程式 2
+
+```swift
+import UIKit
+import WWIntelligentAgent
+
+final class MemoryViewController: UIViewController {
+        
+    @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var outputTextView: UITextView!
+    @IBOutlet weak var streamSwitch: UISwitch!
+
+    private let sessionId = "session_E7B3B043-5A68-4633-AAF6-0C8D79E4DE48"
+    
+    private var agent: WWIntelligentAgentWithMemory!
+    
+    private var messages: [String] = [
+        "我的名字叫什麼？",
+        "我是位iOS打字工",
+        "我的名字叫William",
+    ]
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initMemory()
+    }
+    
+    @IBAction func chatAction(_ sender: UIButton) {
+
+        guard let prompt = messages.popLast() else { return }
+        
+        inputTextView.text = prompt
+        
+        if !streamSwitch.isOn { chat(to: prompt); return }
+        Task { try? await streamChat(to: prompt) }
+    }
+}
+
+private extension MemoryViewController {
+    
+    func initMemory() {
+        
+        do {
+            agent = try WWIntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func chat(to prompt: String) {
+        
+        Task {
+            let response = try await agent.chat(to: prompt)
+            outputTextView.text = response
+            
+            try agent.saveAssistantMemory(response)
+        }
+    }
+    
+    func streamChat(to prompt: String) async throws {
+                
+        for try await snapshot in try await agent.streamChat(to: prompt) {
+            Task { @MainActor in self.outputTextView.text = snapshot.content }
+        }
+        
+        if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
     }
 }
 ```

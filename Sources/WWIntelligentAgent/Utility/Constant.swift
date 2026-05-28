@@ -21,6 +21,7 @@ public extension WWIntelligentAgent {
         
         case sessionNotFound            // 尚未建立可用的 `LanguageModelSession`
         case promptIsEmpty              // 輸入的提示文字為空，或只包含空白與換行字元
+        case classCastingFailed         // 類別轉型失敗
         case modelUnavailable           // 目前裝置無法使用指定的系統語言模型
         case databaseNotConnected       // 資料庫未連接
     }

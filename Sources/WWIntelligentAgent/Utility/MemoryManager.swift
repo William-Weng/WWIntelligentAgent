@@ -109,7 +109,7 @@ public extension WWIntelligentAgent.MemoryManager {
     ///   - sessionId: 可選的會話 ID 過濾
     ///   - limit: 最大筆數
     /// - Returns: 符合的記憶陣列
-    func searchMemories(keyword: String, sessionId: String? = nil, limit: Int = 20) throws -> [WWIntelligentAgent.Memory]? {
+    func searchMemories(keyword: String, sessionId: String? = nil, limit: Int = 20) throws -> [WWIntelligentAgent.Memory] {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
 
@@ -123,7 +123,8 @@ public extension WWIntelligentAgent.MemoryManager {
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, where: whereCondition, orderBy: orderBy, limit: limitCondition)
         let memories = result.array.jsonClass(for: [WWIntelligentAgent.Memory].self)
         
-        return memories
+        if let memories { return memories }
+        throw WWIntelligentAgent.CustomError.classCastingFailed
     }
     
     /// 清除某會話的所有記憶

@@ -87,6 +87,7 @@ Create fun, original images with Image Playground right in your apps or its own 
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="M52-ND-hPc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Orh-VK-yMP">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -124,19 +125,22 @@ Create fun, original images with Image Playground right in your apps or its own 
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-FA-oG5">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vbw-Y8-hjj">
                                         <rect key="frame" x="0.0" y="520" width="361" height="32"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztv-CO-uuz">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="32"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVz-Hm-n6v">
+                                                <rect key="frame" x="0.0" y="0.0" width="284" height="32"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Click"/>
                                                 <connections>
-                                                    <action selector="chatAction:" destination="t6s-zs-EKZ" eventType="touchUpInside" id="IW9-bc-rL9"/>
+                                                    <action selector="chatAction:" destination="t6s-zs-EKZ" eventType="touchUpInside" id="PhU-FS-Zms"/>
                                                 </connections>
                                             </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DtK-oT-AVK">
+                                                <rect key="frame" x="300" y="0.0" width="63" height="32"/>
+                                            </switch>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="az5-Ar-Xs6"/>
+                                            <constraint firstAttribute="height" constant="32" id="3JK-YV-Xhv"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -159,6 +163,7 @@ Create fun, original images with Image Playground right in your apps or its own 
                     <connections>
                         <outlet property="inputTextView" destination="8Zw-xc-07Q" id="r12-sY-XnL"/>
                         <outlet property="outputTextView" destination="NYk-oV-ip0" id="hIC-ns-RBC"/>
+                        <outlet property="streamSwitch" destination="DtK-oT-AVK" id="Aqm-iw-B4O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVX-cX-HHa" sceneMemberID="firstResponder"/>
