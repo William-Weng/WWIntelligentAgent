@@ -22,13 +22,13 @@ open class WWIntelligentAgentWithMemory {
     ///   - agent: Agent核心
     ///   - sessionId: 對話Id
     ///   - historyPrefixWord: 歷史提示詞前綴字
-    public init(agent: WWIntelligentAgent, sessionId: String? = nil, historyPrefixWord: WWIntelligentAgent.HistoryPrefixWord = (title: "以下是最近的對話歷史", null: "無", user: "使用者", assistant: "Assistant")) throws {
+    public init(agent: WWIntelligentAgent, sessionId: String? = nil, historyPrefixWord: WWIntelligentAgent.HistoryPrefixWord = (title: "以下是最近的對話歷史", null: "無")) throws {
         
         self.agent = agent
         self.currentSessionId = sessionId ?? "session_\(UUID().uuidString)"
         self.manager = .init()
         self.historyPrefixWord = historyPrefixWord
-
+        
         try setupMemory()
     }
     
@@ -62,8 +62,8 @@ public extension WWIntelligentAgentWithMemory {
         let historyPrompt = try combineHistoryPrompt(to: prompt, limit: limit)
         return try await agent.streamChat(to: historyPrompt)
     }
-
-    /// 搜尋歷史對話記憶
+    
+    /// 儲存 AI 助理的對話記憶
     /// - Parameter content: AI 助理回應的完整文字內容
     /// - Throws: 當資料庫寫入失敗或工作階段無效時拋出錯誤
     func saveAssistantMemory(_ response: String) throws {
@@ -104,10 +104,10 @@ private extension WWIntelligentAgentWithMemory {
             \(historyPrefixWord.title):
             \(recentContext.isEmpty ? "\(historyPrefixWord.null)" : recentContext)
             
-            \(historyPrefixWord.user)：\(prompt)
-            \(historyPrefixWord.assistant):
+            user：\(prompt)
+            assistant:
             """
-        
+                
         return historyPrompt
     }
 }

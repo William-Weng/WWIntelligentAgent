@@ -8,7 +8,9 @@
 
 [English](./README.en.md) | [繁體中文](./README.md)
 
-https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
+https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
+
+---
 
 ## 🎉  相關說明
 一個以 **Apple Foundation Models** 為基礎的輕量級 Swift 包裝器，用來簡化 `SystemLanguageModel`、`LanguageModelSession`、提示文字驗證，以及一般回應與串流回應的呼叫流程。
@@ -34,7 +36,7 @@ https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.2")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.3")])
 ```
 
 然後在 target 中加入：
@@ -193,8 +195,11 @@ private extension MemoryViewController {
     
     func initMemory() {
         
+        let intelligentAgent: WWIntelligentAgent = .init(model: .default)
+        intelligentAgent.configure(with: "我是位很好聊天的好幫手，可以記住別人的說話，下次再和我说什麼，我可以記住哦，而且簡化問題。", optionType: .bot)
+        
         do {
-            agent = try WWIntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
+            agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
         } catch {
             print(error)
         }

@@ -8,7 +8,9 @@
 
 [English](./README.en.md) | [繁體中文](./README.md)
 
-https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
+https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
+
+---
 
 ## 🎉 Overview
 A lightweight Swift wrapper built on **Apple Foundation Models** that simplifies `SystemLanguageModel`, `LanguageModelSession`, prompt validation, and both standard and streaming response workflows.
@@ -34,7 +36,7 @@ This wrapper separates common preflight checks into focused methods such as sess
 Add the package to your `Package.swift`:
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.2")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.3")])
 ```
 
 Then add it to your target:

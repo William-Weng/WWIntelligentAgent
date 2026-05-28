@@ -38,6 +38,7 @@ final class MemoryViewController: UIViewController {
         guard let prompt = messages.popLast() else { return }
         
         inputTextView.text = prompt
+        outputTextView.text = ""
         
         if !streamSwitch.isOn { chat(to: prompt); return }
         Task { try? await streamChat(to: prompt) }
@@ -48,8 +49,11 @@ private extension MemoryViewController {
     
     func initMemory() {
         
+        let intelligentAgent: WWIntelligentAgent = .init(model: .default)
+        intelligentAgent.configure(with: "我是位很好聊天的好幫手，可以記住別人的說話，下次再和我说什麼，我可以記住哦，而且簡化問題。", optionType: .bot)
+        
         do {
-            agent = try WWIntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
+            agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
         } catch {
             print(error)
         }
@@ -67,8 +71,8 @@ private extension MemoryViewController {
     
     func streamChat(to prompt: String) async throws {
                 
-        for try await snapshot in try await agent.streamChat(to: prompt) {
-            Task { @MainActor in self.outputTextView.text = snapshot.content }
+        for try await partial in try await agent.streamChat(to: prompt) {
+            Task { @MainActor in self.outputTextView.text = partial.content }
         }
         
         if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
