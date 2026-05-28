@@ -76,6 +76,12 @@ If you are using Xcode, you can also add the GitHub repository through **File > 
 | `deleteExpiredMemories(olderThanDays:)` | Deletes expired memories older than the specified number of days. |
 | `close()` | Closes the database connection. |
 
+| `API (WWIntelligentAgentWithMemory)` | Description |
+|---|---|
+| `init(agent:sessionId:historyPrefixWord:)` | Initializes an Agent with memory functionality. |
+| `chat(to:limit:)` | Sends a prompt to the model and returns the complete response, automatically saving memory. |
+| `streamChat(to:limit:onUpdate:)` | Sends a prompt to the model, receives the response via streaming, and automatically saves the complete memory. |
+
 ## Example
 
 ```swift

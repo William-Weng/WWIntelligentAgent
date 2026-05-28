@@ -17,7 +17,7 @@ open class WWIntelligentAgentWithMemory {
     private let currentSessionId: String
     private let historyPrefixWord: WWIntelligentAgent.HistoryPrefixWord
     
-    /// 初始化
+    /// 初始化含記憶功能的Agent
     /// - Parameters:
     ///   - agent: Agent核心
     ///   - sessionId: 對話Id

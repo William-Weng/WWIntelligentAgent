@@ -76,6 +76,12 @@ https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 | `deleteExpiredMemories(olderThanDays:)` | 刪除超過指定天數的過期記憶 |
 | `close()` | 關閉資料庫連線 |
 
+| API (WWIntelligentAgentWithMemory) | 說明 |
+|---|---|
+| `init(agent:sessionId:historyPrefixWord:)` | 初始化含記憶功能的Agent |
+| `chat(to:limit:)` | 傳送提示文字給模型，並取得完整回應結果，自動保存記憶 |
+| `streamChat(to:limit:onUpdate:)` | 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶 |
+
 ## 🚀 範例程式
 
 ```swift

@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWIntelligentAgent",
       "state" : {
-        "revision" : "ddc04952a56d38b721f3dc04c38d2a3fae777ce0",
-        "version" : "1.2.0"
+        "revision" : "9755d86bc61c75afc51d6dbd95821f818ced86ca",
+        "version" : "1.2.1"
       }
     },
     {
