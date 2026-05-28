@@ -7,6 +7,12 @@
 
 import FoundationModels
 
+// MARK: - typealias
+public extension WWIntelligentAgent {
+    
+    typealias HistoryPrefixWord = (title: String, null: String, user: String, assistant: String)    // 歷史記憶前綴字 (組合歷史字句用)
+}
+
 // MARK: - enum
 public extension WWIntelligentAgent {
     
@@ -27,6 +33,12 @@ public extension WWIntelligentAgent {
         case write                      // 撰寫模式：增加一些變化，適合文案、摘要、改寫、故事等創作
         case code                       // 程式碼模式：偏保守，降低隨機性，讓輸出更穩定
         case classify                   // 分類模式：使用 greedy，輸出穩定且可重複，適合標籤、類別判斷、資料抽取
+    }
+    
+    /// 角色名稱
+    enum Role: String {
+        case user                       // 使用者
+        case assistant                  // 助理
     }
 }
 

@@ -34,7 +34,7 @@ This wrapper separates common preflight checks into focused methods such as sess
 Add the package to your `Package.swift`:
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.0")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.1")])
 ```
 
 Then add it to your target:

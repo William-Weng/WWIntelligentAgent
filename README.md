@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/a95f956a-5ac9-4f69-a1b0-8c2db41315d5
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.0")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.1")])
 ```
 
 然後在 target 中加入：

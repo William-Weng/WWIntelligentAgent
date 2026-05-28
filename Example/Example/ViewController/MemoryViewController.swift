@@ -14,7 +14,8 @@ final class MemoryViewController: UIViewController {
     @IBOutlet weak var outputTextView: UITextView!
     
     private let sessionId = "session_E7B3B043-5A68-4633-AAF6-0C8D79E4DE48"
-    private var memoryAgent: IntelligentAgentWithMemory!
+    
+    private var agent: WWIntelligentAgentWithMemory!
     
     private var messages: [String] = [
         "我的名字叫什麼？",
@@ -37,6 +38,8 @@ final class MemoryViewController: UIViewController {
         
         inputTextView.text = prompt
         chat(to: prompt)
+        
+        // Task { try? await streamChat(to: prompt) }
     }
 }
 
@@ -45,7 +48,7 @@ private extension MemoryViewController {
     func initMemory() {
         
         do {
-            memoryAgent = try IntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
+            agent = try WWIntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
         } catch {
             print(error)
         }
@@ -54,8 +57,15 @@ private extension MemoryViewController {
     func chat(to prompt: String) {
         
         Task {
-            let response = try? await memoryAgent.chat(prompt)
+            let response = try? await agent.chat(to: prompt)
             outputTextView.text = response
+        }
+    }
+    
+    func streamChat(to prompt: String) async throws {
+        
+        try? await agent.streamChat(to: prompt) { snapshot in
+            Task { @MainActor in self.outputTextView.text = snapshot.content }
         }
     }
 }
