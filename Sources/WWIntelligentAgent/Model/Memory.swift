@@ -20,6 +20,7 @@ public extension WWIntelligentAgent {
         public var content: String           // 訊息內容
         public var timestamp: Date           // 時間戳
         public var metadata: String?         // 額外資訊（JSON 格式，可選）
+        public var embedding: [Float]?       // 向量嵌入（512 維，用於語意搜尋）
     }
 }
 
@@ -35,6 +36,7 @@ extension WWIntelligentAgent.Memory: WWSQLite3Manager.SchemeDelegate {
             (key: "content", type: .TEXT(attribute: (isNotNull: true, isNoCase: false, isUnique: false), defaultValue: nil)),
             (key: "timestamp", type: .TIMESTAMP()),
             (key: "metadata", type: .TEXT(attribute: (isNotNull: false, isNoCase: false, isUnique: false), defaultValue: nil)),
+            (key: "embedding", type: .BLOB(attribute: (isNotNull: false, isNoCase: false, isUnique: false), defaultValue: nil)),
         ]
     }
 }

@@ -36,7 +36,7 @@ This wrapper separates common preflight checks into focused methods such as sess
 Add the package to your `Package.swift`:
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.3")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.4")])
 ```
 
 Then add it to your target:
@@ -129,7 +129,7 @@ private extension ViewController {
                 let content = try await agent.chat(to: prompt)
                 outputTextView.text = content
             } catch {
-                print(error)
+                outputTextView.text = error.localizedDescription
             }
         }
     }
@@ -152,9 +152,6 @@ private extension ViewController {
 ## 🚀 Example 2
 
 ```swift
-import UIKit
-import WWIntelligentAgent
-
 final class MemoryViewController: UIViewController {
         
     @IBOutlet weak var inputTextView: UITextView!
@@ -185,7 +182,8 @@ final class MemoryViewController: UIViewController {
         guard let prompt = messages.popLast() else { return }
         
         inputTextView.text = prompt
-        
+        outputTextView.text = ""
+                
         if !streamSwitch.isOn { chat(to: prompt); return }
         Task { try? await streamChat(to: prompt) }
     }
@@ -195,10 +193,13 @@ private extension MemoryViewController {
     
     func initMemory() {
         
+        let intelligentAgent: WWIntelligentAgent = .init(model: .default)
+        intelligentAgent.configure(with: "我是位很好聊天的好幫手，可以記住別人的說話，下次再和我说什麼，我可以記住哦，而且簡化問題。", optionType: .bot)
+        
         do {
-            agent = try WWIntelligentAgentWithMemory(agent: .init(), sessionId: sessionId)
+            agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
         } catch {
-            print(error)
+            outputTextView.text = error.localizedDescription
         }
     }
     
@@ -208,17 +209,21 @@ private extension MemoryViewController {
             let response = try await agent.chat(to: prompt)
             outputTextView.text = response
             
-            try agent.saveAssistantMemory(response)
+            do {
+                try await agent.saveAssistantMemory(response)
+            } catch {
+                outputTextView.text = error.localizedDescription
+            }
         }
     }
     
     func streamChat(to prompt: String) async throws {
                 
-        for try await snapshot in try await agent.streamChat(to: prompt) {
-            Task { @MainActor in self.outputTextView.text = snapshot.content }
+        for try await partial in try await agent.streamChat(to: prompt) {
+            Task { @MainActor in outputTextView.text = partial.content }
         }
         
-        if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
+        if let response = outputTextView.text { try await agent.saveAssistantMemory(response) }
     }
 }
 ```

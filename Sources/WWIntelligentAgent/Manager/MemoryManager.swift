@@ -8,7 +8,7 @@
 import Foundation
 import WWSQLite3Manager
 
-// MARK: - Session
+// MARK: - MemoryManager
 public extension WWIntelligentAgent {
     
     /// Agent 記憶管理器（中期記憶：SQLite 持久化）
@@ -17,6 +17,7 @@ public extension WWIntelligentAgent {
         private let databaseName: String
         private let tableName: String
         private let rootFolder: URL
+        private let embedding: EmbeddingManager
         
         private var database: WWSQLite3Manager.Database?
         
@@ -25,10 +26,12 @@ public extension WWIntelligentAgent {
         ///   - databaseName: 資料庫名稱
         ///   - tableName: 資料表名稱
         ///   - rootFolder: 資料夾名稱
-        public init(databaseName: String = "agent_memory.db", tableName: String = "agent_memories", rootFolder: URL = .documentsDirectory) {
+        public init(databaseName: String = "agent_memory.db", tableName: String = "agent_memories", rootFolder: URL = .documentsDirectory) throws {
+        
             self.databaseName = databaseName
             self.tableName = tableName
             self.rootFolder = rootFolder
+            self.embedding = try EmbeddingManager(for: .english)
         }
     }
 }
@@ -48,7 +51,7 @@ public extension WWIntelligentAgent.MemoryManager {
         try database.create(tableName: tableName, type: WWIntelligentAgent.Memory.self, ifNotExists: true)
     }
 }
- 
+
 // MARK: - CRUD Operations
 public extension WWIntelligentAgent.MemoryManager {
         
@@ -60,15 +63,21 @@ public extension WWIntelligentAgent.MemoryManager {
     ///   - metadata: 額外資訊（JSON 格式，可選）
     /// - Returns: 是否成功儲存
     @discardableResult
-    func saveMemory(sessionId: String, role: WWIntelligentAgent.Role, content: String, metadata: String? = nil) throws -> String {
+    func saveMemory(sessionId: String, role: WWIntelligentAgent.Role, content: String, metadata: String? = nil) async throws -> String {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
-
+        
+        let embedding = await embedding.embed(content)
+        let embeddingData = embedding.data()
+        let metadataValue: WWSQLite3Manager.InsertValue = if let metadata { .string(metadata) } else { .null }
+        
         let insertItems: [WWSQLite3Manager.InsertItem] = [
-            (key: "sessionId", value: sessionId),
-            (key: "role", value: "\(role)"),
-            (key: "content", value: content),
-            (key: "timestamp", value: Date.now),
+            (key: "sessionId", value: .string(sessionId)),
+            (key: "role", value: .string("\(role)")),
+            (key: "content", value: .string(content)),
+            (key: "timestamp", value: .date(Date.now)),
+            (key: "metadata", value: metadataValue),
+            (key: "embedding", value: .data(embeddingData)),
         ]
         
         return try database.insert(tableName: tableName, itemsArray: [insertItems])
@@ -79,12 +88,10 @@ public extension WWIntelligentAgent.MemoryManager {
     ///   - sessionId: 會話 ID
     ///   - limit: 最大筆數（nil = 全部）
     /// - Returns: 記憶陣列
-    func memoryHistory(sessionId: String, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory]? {
+    func memoryHistory(sessionId: String, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory] {
         
-        let array = try getMemoryHistory(sessionId: sessionId, limit: limit)
-        let memories = array.jsonClass(for: [WWIntelligentAgent.Memory].self)
-        
-        return memories
+        let result = try getMemoryHistory(sessionId: sessionId, limit: limit)
+        return try parseSelectMemoryHistory(result: result)
     }
     
     /// 取得最近 N 筆記憶（所有會話）
@@ -99,8 +106,7 @@ public extension WWIntelligentAgent.MemoryManager {
         let limitCondition = WWSQLite3Manager.Limit().build(count: limit, offset: 0)
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, orderBy: orderBy, limit: limitCondition)
         
-        let memories = result.array.jsonClass(for: [WWIntelligentAgent.Memory].self)
-        return memories
+        return try parseSelectMemoryHistory(result: result)
     }
     
     /// 搜尋包含關鍵字的名記憶（使用 LIKE）
@@ -121,10 +127,8 @@ public extension WWIntelligentAgent.MemoryManager {
         let limitCondition = WWSQLite3Manager.Limit().build(count: limit, offset: 0)
         
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, where: whereCondition, orderBy: orderBy, limit: limitCondition)
-        let memories = result.array.jsonClass(for: [WWIntelligentAgent.Memory].self)
         
-        if let memories { return memories }
-        throw WWIntelligentAgent.CustomError.classCastingFailed
+        return try parseSelectMemoryHistory(result: result)
     }
     
     /// 清除某會話的所有記憶
@@ -164,8 +168,8 @@ private extension WWIntelligentAgent.MemoryManager {
     /// - Parameters:
     ///   - sessionId: 會話 ID
     ///   - limit: 最大筆數（nil = 全部）
-    /// - Returns: [[String: Any]]
-    func getMemoryHistory(sessionId: String, limit: Int?) throws -> [[String: Any]] {
+    /// - Returns: WWSQLite3Manager.SelectResult
+    func getMemoryHistory(sessionId: String, limit: Int?) throws -> WWSQLite3Manager.SelectResult {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
         
@@ -175,6 +179,42 @@ private extension WWIntelligentAgent.MemoryManager {
         
         let result = database.select(tableName: tableName, type: WWIntelligentAgent.Memory.self, where: whereCondition, orderBy: orderBy, limit: limitCondition)
         
-        return result.array
+        return result
+    }
+    
+    /// 從 SQLite SELECT 結果解析記憶歷史（[Memory]）
+    ///
+    /// 將 `WWSQLite3Manager.SelectResult` 中的每一列（row）轉換成 `WWIntelligentAgent.Memory`
+    ///
+    /// 欄位對應：
+    /// - sessionId: String
+    /// - role: String（例如 "user" / "assistant"）
+    /// - content: String
+    /// - timestamp: String（ISO 8601）→ 轉成 Date
+    /// - metadata: String?（可選）
+    /// - embedding: Data?（BLOB，Float 向量）→ 轉成 [Float]?
+    ///
+    /// - Parameter result: SQLite SELECT 查詢結果
+    /// - Returns: 成功解析的記憶陣列，無效列會被過濾掉
+    func parseSelectMemoryHistory(result: WWSQLite3Manager.SelectResult) throws -> [WWIntelligentAgent.Memory] {
+        
+        let memories: [WWIntelligentAgent.Memory] = try result.array.compactMap { row in
+            
+            guard let sessionId = row["sessionId"] as? String,
+                  let role = row["role"] as? String,
+                  let content = row["content"] as? String,
+                  let timestamp = (row["timestamp"] as? String)?.date()
+            else {
+                throw WWIntelligentAgent.CustomError.classCastingFailed
+            }
+            
+            let metadata = row["metadata"] as? String
+            let embedding = row["embedding"] as? Data
+            
+            return .init(sessionId: sessionId, role: role, content: content, timestamp: timestamp, metadata: metadata, embedding: embedding?.floatVector())
+        }
+        
+        return memories
     }
 }
+

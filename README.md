@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.3")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.4")])
 ```
 
 然後在 target 中加入：
@@ -86,7 +86,7 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 | `saveAssistantMemory(_:)` | 儲存 AI 助理的對話記憶 |
 | `searchMemory(keyword:)` | 搜尋歷史對話記憶 |
 
-## 🚀 範例程式 1
+## 🚀 Basic Chat
 
 ```swift
 import UIKit
@@ -129,7 +129,7 @@ private extension ViewController {
                 let content = try await agent.chat(to: prompt)
                 outputTextView.text = content
             } catch {
-                print(error)
+                outputTextView.text = error.localizedDescription
             }
         }
     }
@@ -149,7 +149,7 @@ private extension ViewController {
 }
 ```
 
-## 🚀 範例程式 2
+## 🚀 Basic Chat (with Memory)
 
 ```swift
 import UIKit
@@ -166,9 +166,9 @@ final class MemoryViewController: UIViewController {
     private var agent: WWIntelligentAgentWithMemory!
     
     private var messages: [String] = [
-        "我的名字叫什麼？",
-        "我是位iOS打字工",
-        "我的名字叫William",
+        "What is my name?",
+        "I am an iOS keyboard warrior.",
+        "My name is William.",
     ]
     
     required init?(coder: NSCoder) {
@@ -185,7 +185,8 @@ final class MemoryViewController: UIViewController {
         guard let prompt = messages.popLast() else { return }
         
         inputTextView.text = prompt
-        
+        outputTextView.text = ""
+                
         if !streamSwitch.isOn { chat(to: prompt); return }
         Task { try? await streamChat(to: prompt) }
     }
@@ -201,7 +202,7 @@ private extension MemoryViewController {
         do {
             agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
         } catch {
-            print(error)
+            outputTextView.text = error.localizedDescription
         }
     }
     
@@ -211,17 +212,21 @@ private extension MemoryViewController {
             let response = try await agent.chat(to: prompt)
             outputTextView.text = response
             
-            try agent.saveAssistantMemory(response)
+            do {
+                try await agent.saveAssistantMemory(response)
+            } catch {
+                outputTextView.text = error.localizedDescription
+            }
         }
     }
     
     func streamChat(to prompt: String) async throws {
                 
-        for try await snapshot in try await agent.streamChat(to: prompt) {
-            Task { @MainActor in self.outputTextView.text = snapshot.content }
+        for try await partial in try await agent.streamChat(to: prompt) {
+            Task { @MainActor in outputTextView.text = partial.content }
         }
         
-        if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
+        if let response = outputTextView.text { try await agent.saveAssistantMemory(response) }
     }
 }
 ```

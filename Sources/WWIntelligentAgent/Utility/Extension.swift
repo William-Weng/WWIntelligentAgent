@@ -29,50 +29,44 @@ extension JSONSerialization {
     }
 }
 
-// MARK: - Sequence
-extension Sequence {
-        
-    /// Array => JSON Data
-    /// - ["name","William"] => {"name","William"} => 5b226e616d65222c2257696c6c69616d225d
-    /// - Returns: Data?
-    func jsonData(options: JSONSerialization.WritingOptions = .init()) -> Data? {
-        return JSONSerialization.data(with: self, options: options)
-    }
-        
-    /// Array => JSON Data => [T]
-    /// - Parameter type: 要轉換成的Array類型
-    /// - Returns: [T]?
-    func jsonClass<T: Decodable>(for type: [T].Type) -> [T]? {
-        
-        guard let data = jsonData(),
-              let array = data.class(type: [T].self)
-        else {
-            return nil
-        }
-        
-        return array
+// MARK: - Array
+extension Array where Element == Float {
+    
+    /// 將 Float 陣列轉成 Data（二進位）
+    ///
+    /// 用途：
+    /// - 儲存 embedding 向量到 SQLite / 檔案
+    /// - 網路傳輸 embedding 向量
+    /// - 與 C / Core ML / Accelerate 等 API 串接（需要原始二進位）
+    ///
+    /// - Returns: 包含原始二進位資料的 `Data`
+    ///
+    /// 實作細節：
+    /// - `self.count`: Float 元素個數（例如 768）
+    /// - `MemoryLayout<Element>.size`: 每個 Float 的 bytes 大小（4 bytes）
+    /// - 總 bytes = count × 4
+    /// - `Data(bytes:count:)` 會複製陣列的連續記憶體
+    func data() -> Data {
+        Data(bytes: self, count: count * MemoryLayout<Element>.size)
     }
 }
 
 // MARK: - Data
 extension Data {
+    
+    /// 將 SQLite 的 BLOB 二進位資料還原為 [Float] 向量
+    /// - Returns: 成功還原的 `[Float]`，若資料為空則回傳 `[]`
+    func floatVector() -> [Float] {
         
-    /// Data => Class
-    /// - Parameter type: 要轉型的Type => 符合Decodable
-    /// - Returns: T => 泛型
-    func `class`<T: Decodable>(type: T.Type, dateFormat: String = "yyyy-MM-dd HH:mm:ss ZZZ") -> T? {
+        let floatSize = MemoryLayout<Float>.size
+        let count = self.count / floatSize
         
-        let decoder = JSONDecoder()
-        let formatter = DateFormatter()
+        guard count > 0 else { return [] }
         
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.locale = Locale(identifier: "UTC")
-
-        decoder.dateDecodingStrategy = .formatted(formatter)
-        
-        return try? decoder.decode(type.self, from: self)
+        return self.withUnsafeBytes { bytes in
+            let floatBuffer = bytes.bindMemory(to: Float.self)
+            return [Float](floatBuffer)
+        }
     }
 }
 
@@ -91,6 +85,22 @@ extension String {
         
         guard !prompt.isEmpty else { throw WWIntelligentAgent.CustomError.promptIsEmpty }
         return prompt
+    }
+    
+    /// 將"2020-07-08 16:36:31 +0800" => Date()
+    /// - Parameters:
+    ///   - dateFormat: Constant.DateFormat
+    ///   - timeZone: TimeZone
+    /// - Returns: Date?
+    func date(dateFormat: String = "yyyy-MM-dd HH:mm:ss ZZZ", timeZone: TimeZone = .current) -> Date? {
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.dateFormat = "\(dateFormat)"
+        dateFormatter.timeZone = timeZone
+        
+        return dateFormatter.date(from: self)
     }
 }
 

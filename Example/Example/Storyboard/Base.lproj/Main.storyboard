@@ -112,14 +112,17 @@ Create fun, original images with Image Playground right in your apps or its own 
                                 <rect key="frame" x="16" y="150" width="361" height="552"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Zw-xc-07Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="244"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="64"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="ELj-vL-cQW"/>
+                                        </constraints>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NYk-oV-ip0">
-                                        <rect key="frame" x="0.0" y="260" width="361" height="244"/>
+                                        <rect key="frame" x="0.0" y="80" width="361" height="424"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
@@ -144,9 +147,6 @@ Create fun, original images with Image Playground right in your apps or its own 
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="8Zw-xc-07Q" firstAttribute="height" secondItem="NYk-oV-ip0" secondAttribute="height" id="2I1-nc-bbw"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0im-nv-SpI"/>

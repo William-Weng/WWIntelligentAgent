@@ -24,6 +24,7 @@ public extension WWIntelligentAgent {
         case classCastingFailed         // 類別轉型失敗
         case modelUnavailable           // 目前裝置無法使用指定的系統語言模型
         case databaseNotConnected       // 資料庫未連接
+        case NLLanguageFailed           // 語系不支援
     }
     
     /// 預設的生成模式選項，方便使用者快速選擇適合的設定
@@ -34,6 +35,7 @@ public extension WWIntelligentAgent {
         case write                      // 撰寫模式：增加一些變化，適合文案、摘要、改寫、故事等創作
         case code                       // 程式碼模式：偏保守，降低隨機性，讓輸出更穩定
         case classify                   // 分類模式：使用 greedy，輸出穩定且可重複，適合標籤、類別判斷、資料抽取
+        case custom(GenerationOptions)
     }
     
     /// 角色名稱
@@ -56,6 +58,7 @@ extension WWIntelligentAgent.OptionType {
         case .write: return .init(sampling: nil, temperature: 0.9, maximumResponseTokens: 1200)
         case .code: return .init(sampling: nil, temperature: 0.3, maximumResponseTokens: 1000)
         case .classify: return .init(sampling: .greedy, temperature: 0.0, maximumResponseTokens: 100)
+        case .custom(let options): return options
         }
     }
 }

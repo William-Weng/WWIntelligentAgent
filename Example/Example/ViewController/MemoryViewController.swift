@@ -39,7 +39,7 @@ final class MemoryViewController: UIViewController {
         
         inputTextView.text = prompt
         outputTextView.text = ""
-        
+                
         if !streamSwitch.isOn { chat(to: prompt); return }
         Task { try? await streamChat(to: prompt) }
     }
@@ -55,7 +55,7 @@ private extension MemoryViewController {
         do {
             agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
         } catch {
-            print(error)
+            outputTextView.text = error.localizedDescription
         }
     }
     
@@ -65,16 +65,20 @@ private extension MemoryViewController {
             let response = try await agent.chat(to: prompt)
             outputTextView.text = response
             
-            try agent.saveAssistantMemory(response)
+            do {
+                try await agent.saveAssistantMemory(response)
+            } catch {
+                outputTextView.text = error.localizedDescription
+            }
         }
     }
     
     func streamChat(to prompt: String) async throws {
                 
         for try await partial in try await agent.streamChat(to: prompt) {
-            Task { @MainActor in self.outputTextView.text = partial.content }
+            Task { @MainActor in outputTextView.text = partial.content }
         }
         
-        if let response = outputTextView.text { try agent.saveAssistantMemory(response) }
+        if let response = outputTextView.text { try await agent.saveAssistantMemory(response) }
     }
 }

@@ -26,9 +26,9 @@ open class WWIntelligentAgentWithMemory {
         
         self.agent = agent
         self.currentSessionId = sessionId ?? "session_\(UUID().uuidString)"
-        self.manager = .init()
         self.historyPrefixWord = historyPrefixWord
         
+        try manager = .init()
         try setupMemory()
     }
     
@@ -46,9 +46,11 @@ public extension WWIntelligentAgentWithMemory {
     ///   - limit: 取得最近對話歷史筆數
     /// - Returns: String
     func chat(to prompt: String, limit: Int = 10) async throws -> String {
-        
+                
         let historyPrompt = try combineHistoryPrompt(to: prompt, limit: limit)
         let response = try await agent.chat(to: historyPrompt)
+        
+        try await manager.saveMemory(sessionId: currentSessionId, role: .user, content: prompt)
         
         return response
     }
@@ -59,15 +61,19 @@ public extension WWIntelligentAgentWithMemory {
     ///   - limit: 取得最近對話歷史筆數
     /// - Throws: 錯誤
     func streamChat(to prompt: String, limit: Int = 10) async throws -> sending LanguageModelSession.ResponseStream<String> {
+        
         let historyPrompt = try combineHistoryPrompt(to: prompt, limit: limit)
+        try await manager.saveMemory(sessionId: currentSessionId, role: .user, content: prompt)
+
         return try await agent.streamChat(to: historyPrompt)
     }
     
     /// 儲存 AI 助理的對話記憶
     /// - Parameter content: AI 助理回應的完整文字內容
     /// - Throws: 當資料庫寫入失敗或工作階段無效時拋出錯誤
-    func saveAssistantMemory(_ response: String) throws {
-        try manager.saveMemory(sessionId: currentSessionId, role: .assistant, content: response)
+    @discardableResult
+    func saveAssistantMemory(_ response: String) async throws -> String {
+        try await manager.saveMemory(sessionId: currentSessionId, role: .assistant, content: response)
     }
     
     /// 搜尋歷史對話記憶
@@ -95,10 +101,8 @@ private extension WWIntelligentAgentWithMemory {
     /// - Returns: String
     func combineHistoryPrompt(to prompt: String, limit: Int) throws -> String {
         
-        let history = try manager.memoryHistory(sessionId: currentSessionId, limit: 10) ?? []
-        let recentContext = history.map { "\($0.role): \($0.content)" }.joined(separator: "\n")
-        
-        try manager.saveMemory(sessionId: currentSessionId, role: .user, content: prompt)
+        let histories = try manager.memoryHistory(sessionId: currentSessionId, limit: 10) ?? []
+        let recentContext = histories.map { "\($0.role): \($0.content)" }.joined(separator: "\n")
         
         let historyPrompt = """
             \(historyPrefixWord.title):
