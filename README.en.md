@@ -181,7 +181,7 @@ private extension MemoryViewController {
     func initMemory() {
         
         let intelligentAgent: WWIntelligentAgent = .init(model: .default)
-        intelligentAgent.configure(with: "我是位很好聊天的好幫手，可以記住別人的說話，下次再和我说什麼，我可以記住哦，而且簡化問題。", optionType: .bot)
+        intelligentAgent.configure(with: "I am a great conversational assistant. I can remember what people tell me, so next time you talk to me, I'll remember. I also simplify questions.", optionType: .bot)        
         
         do {
             agent = try WWIntelligentAgentWithMemory(agent: intelligentAgent, sessionId: sessionId)
