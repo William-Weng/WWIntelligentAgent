@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWIntelligentAgent",
       "state" : {
-        "revision" : "805caa24c2411ef495946188d86cc1e12b58005e",
-        "version" : "1.2.3"
+        "revision" : "d74eaa863e436adf3d68e716d6022ca17102ee5c",
+        "version" : "1.2.4"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWSQLite3Manager",
       "state" : {
-        "revision" : "b2b984c645659cb396ebdbda7f3eeba19a46dfda",
-        "version" : "2.2.2"
+        "revision" : "5c97f98dc8feb417874789fb557d572f4c907625",
+        "version" : "2.3.0"
       }
     }
   ],

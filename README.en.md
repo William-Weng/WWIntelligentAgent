@@ -36,7 +36,7 @@ This wrapper separates common preflight checks into focused methods such as sess
 Add the package to your `Package.swift`:
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.4")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.3.0")])
 ```
 
 Then add it to your target:
@@ -86,13 +86,13 @@ If you are using Xcode, you can also add the GitHub repository through **File > 
 | `saveAssistantMemory(_:)` | Saves the conversation memory of the AI assistant. |
 | `searchMemory(keyword:)` | Searches through the historical conversation memory. |
 
-## 🚀 Example 1
+## 🚀 Basic Chat
 
 ```swift
 import UIKit
 import WWIntelligentAgent
 
-final class ViewController: UIViewController {
+final class TalkViewController: UIViewController {
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var outputTextView: UITextView!
@@ -116,7 +116,7 @@ final class ViewController: UIViewController {
     }
 }
 
-private extension ViewController {
+private extension TalkViewController {
     
     func configure() {
         agent.configure(with: instructions)
@@ -149,7 +149,7 @@ private extension ViewController {
 }
 ```
 
-## 🚀 Example 2
+## 🚀 Basic Chat (with Memory)
 
 ```swift
 final class MemoryViewController: UIViewController {
@@ -163,11 +163,11 @@ final class MemoryViewController: UIViewController {
     private var agent: WWIntelligentAgentWithMemory!
     
     private var messages: [String] = [
-        "我的名字叫什麼？",
-        "我是位iOS打字工",
-        "我的名字叫William",
+        "What is my name?",
+        "I am an iOS keyboard warrior.",
+        "My name is William.",
     ]
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

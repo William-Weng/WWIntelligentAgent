@@ -8,7 +8,7 @@
 import UIKit
 import WWIntelligentAgent
 
-final class ViewController: UIViewController {
+final class TalkViewController: UIViewController {
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var outputTextView: UITextView!
@@ -32,7 +32,7 @@ final class ViewController: UIViewController {
     }
 }
 
-private extension ViewController {
+private extension TalkViewController {
     
     func configure() {
         agent.configure(with: instructions)

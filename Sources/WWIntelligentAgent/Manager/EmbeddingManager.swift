@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import NaturalLanguage
 import WWSQLite3Manager
 
@@ -53,6 +51,9 @@ extension WWIntelligentAgent.EmbeddingManager {
     }
     
     /// 計算兩個向量的餘弦相似度
+    ///
+    /// 公式：cosine(a, b) = (a · b) / (||a|| * ||b||)
+    ///
     /// - Parameters:
     ///   - vector1: 第一個向量
     ///   - vector2: 第二個向量

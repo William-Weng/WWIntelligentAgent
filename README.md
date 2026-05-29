@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.2.4")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.3.0")])
 ```
 
 然後在 target 中加入：
@@ -81,18 +81,18 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 | API (WWIntelligentAgentWithMemory) | 說明 |
 |---|---|
 | `init(agent:sessionId:historyPrefixWord:)` | 初始化含記憶功能的Agent |
-| `chat(to:limit:)` | 傳送提示文字給模型，並取得完整回應結果，自動保存記憶 |
-| `streamChat(to:limit:onUpdate:)` | 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶 |
+| `chat(to:limit:useSemanticSearch:similarLimit:)` | 傳送提示文字給模型，並取得完整回應結果，自動保存記憶 |
+| `streamChat(to:limit:useSemanticSearch:similarLimit:)` | 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶 |
 | `saveAssistantMemory(_:)` | 儲存 AI 助理的對話記憶 |
 | `searchMemory(keyword:)` | 搜尋歷史對話記憶 |
 
-## 🚀 Basic Chat
+## 🚀 基本對話
 
 ```swift
 import UIKit
 import WWIntelligentAgent
 
-final class ViewController: UIViewController {
+final class TalkViewController: UIViewController {
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var outputTextView: UITextView!
@@ -116,7 +116,7 @@ final class ViewController: UIViewController {
     }
 }
 
-private extension ViewController {
+private extension TalkViewController {
     
     func configure() {
         agent.configure(with: instructions)
@@ -149,7 +149,7 @@ private extension ViewController {
 }
 ```
 
-## 🚀 Basic Chat (with Memory)
+## 🚀 基本對話 (有記憶功能)
 
 ```swift
 import UIKit
@@ -166,11 +166,11 @@ final class MemoryViewController: UIViewController {
     private var agent: WWIntelligentAgentWithMemory!
     
     private var messages: [String] = [
-        "What is my name?",
-        "I am an iOS keyboard warrior.",
-        "My name is William.",
+        "我的名字叫什麼？",
+        "我是位iOS打字工",
+        "我的名字叫William",
     ]
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

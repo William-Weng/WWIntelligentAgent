@@ -7,12 +7,6 @@
 
 import FoundationModels
 
-// MARK: - typealias
-public extension WWIntelligentAgent {
-    
-    typealias HistoryPrefixWord = (title: String, null: String)    // 歷史記憶前綴字 (組合歷史字句用)
-}
-
 // MARK: - enum
 public extension WWIntelligentAgent {
     

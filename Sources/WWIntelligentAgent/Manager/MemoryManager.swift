@@ -7,9 +7,10 @@
 
 import Foundation
 import WWSQLite3Manager
+import NaturalLanguage
 
 // MARK: - MemoryManager
-public extension WWIntelligentAgent {
+extension WWIntelligentAgent {
     
     /// Agent 記憶管理器（中期記憶：SQLite 持久化）
     class MemoryManager {
@@ -26,18 +27,19 @@ public extension WWIntelligentAgent {
         ///   - databaseName: 資料庫名稱
         ///   - tableName: 資料表名稱
         ///   - rootFolder: 資料夾名稱
-        public init(databaseName: String = "agent_memory.db", tableName: String = "agent_memories", rootFolder: URL = .documentsDirectory) throws {
-        
+        ///   - language: 要處理的語系（NLLanguage），例如 .chinese, .english
+        public init(databaseName: String, tableName: String, rootFolder: URL, language: NLLanguage) throws {
+            
             self.databaseName = databaseName
             self.tableName = tableName
             self.rootFolder = rootFolder
-            self.embedding = try EmbeddingManager(for: .english)
+            self.embedding = try EmbeddingManager(for: language)
         }
     }
 }
 
 // MARK: - Initialization
-public extension WWIntelligentAgent.MemoryManager {
+extension WWIntelligentAgent.MemoryManager {
     
     /// 初始化並連接資料庫
     /// - Returns: 是否成功連接
@@ -53,7 +55,7 @@ public extension WWIntelligentAgent.MemoryManager {
 }
 
 // MARK: - CRUD Operations
-public extension WWIntelligentAgent.MemoryManager {
+extension WWIntelligentAgent.MemoryManager {
         
     /// 儲存單筆記憶
     /// - Parameters:
@@ -85,10 +87,10 @@ public extension WWIntelligentAgent.MemoryManager {
     
     /// 取得某會話的記憶歷史（按時間順序）
     /// - Parameters:
-    ///   - sessionId: 會話 ID
+    ///   - sessionId: 會話 ID（nil = 全會話ID）
     ///   - limit: 最大筆數（nil = 全部）
     /// - Returns: 記憶陣列
-    func memoryHistory(sessionId: String, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory] {
+    func memoryHistory(sessionId: String?, limit: Int? = nil) throws -> [WWIntelligentAgent.Memory] {
         
         let result = try getMemoryHistory(sessionId: sessionId, limit: limit)
         return try parseSelectMemoryHistory(result: result)
@@ -161,19 +163,67 @@ public extension WWIntelligentAgent.MemoryManager {
     }
 }
 
+// MARK: - 語意搜尋（Embedding）
+extension WWIntelligentAgent.MemoryManager {
+    
+    /// 使用 Embedding 搜尋語意相似的記憶
+    /// 
+    /// 將查詢文字轉成向量，然後在記憶中找餘弦相似度最高的前 K 筆。
+    /// 
+    /// - Parameters:
+    ///   - query: 查詢文字（例如使用者的問題）
+    ///   - sessionId: 會話 ID（過濾特定 session）
+    ///   - topK: 傳回前 K 筆最相似的記憶
+    ///   - limit: 搜尋記憶的最大筆數
+    /// - Returns: 最相似的記憶陣列
+    func findSimilarMemories(query: String, sessionId: String? = nil, topK: Int = 5, limit: Int = 1000) async throws -> [WWIntelligentAgent.Memory]? {
+        
+        let queryVector = await embedding.embed(query)
+        guard !queryVector.isEmpty else { return nil }
+        
+        let memories: [WWIntelligentAgent.Memory]
+        
+        if let sessionId = sessionId {
+            memories = try memoryHistory(sessionId: sessionId, limit: limit) ?? []
+        } else {
+            memories = try memoryHistory(sessionId: nil, limit: limit) ?? []
+        }
+        
+        let memoriesWithEmbedding = memories.filter { $0.embedding != nil && !$0.embedding!.isEmpty }
+        guard !memoriesWithEmbedding.isEmpty else { return nil }
+        
+        var scoredMemories: [(WWIntelligentAgent.Memory, Float)] = []
+        
+        for memory in memoriesWithEmbedding {
+            
+            guard let memoryEmbedding = memory.embedding else { continue }
+            
+            let similarity = await embedding.cosineSimilarity(queryVector, memoryEmbedding)
+            scoredMemories.append((memory, similarity))
+        }
+                
+        let sorted = scoredMemories.sorted { $0.1 > $1.1 }
+        let topMemories = sorted.prefix(topK).map { $0.0 }
+                
+        return Array(topMemories)
+    }
+}
+
 // MARK: - 小工具
 private extension WWIntelligentAgent.MemoryManager {
     
     /// 取得某會話的記憶歷史（按時間順序）
     /// - Parameters:
-    ///   - sessionId: 會話 ID
+    ///   - sessionId: 會話 ID（nil = 全會話ID）
     ///   - limit: 最大筆數（nil = 全部）
     /// - Returns: WWSQLite3Manager.SelectResult
-    func getMemoryHistory(sessionId: String, limit: Int?) throws -> WWSQLite3Manager.SelectResult {
+    func getMemoryHistory(sessionId: String?, limit: Int?) throws -> WWSQLite3Manager.SelectResult {
         
         guard let database = database else { throw WWIntelligentAgent.CustomError.databaseNotConnected }
         
-        let whereCondition: WWSQLite3Manager.Where = .init().and("sessionId", .equal, .text(sessionId))
+        var whereCondition: WWSQLite3Manager.Where? = nil
+        if let sessionId { whereCondition = .init().and("sessionId", .equal, .text(sessionId)) }
+        
         let orderBy: WWSQLite3Manager.OrderBy = .init().build(orderTypes: [(key: "timestamp", direction: .asc)])
         let limitCondition = limit.map { WWSQLite3Manager.Limit().build(count: $0, offset: 0) }
         
