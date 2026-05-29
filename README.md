@@ -65,19 +65,6 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 | `chat(to:)` | 傳送`提示文字`給模型，並取得完整`回應結果` |
 | `streamChat(to:)` | 傳送`提示文字`給模型，並以`串流方式`取得回應結果 |
 
-| API (MemoryManager) | 說明 |
-|---|---|
-| `init(databaseName:tableName:)` | 建立一個 MemoryManager 實例，並指定資料庫名稱與資料表名稱 |
-| `connect()` | 連接 SQLite 資料庫 |
-| `createTableIfNotExists()` | 建立記憶資料表（若尚未存在）|
-| `saveMemory(sessionId:role:content:metadata:)` | 儲存單筆記憶資料 |
-| `memoryHistory(sessionId:limit:)` | 取得指定會話的記憶歷史 |
-| `recentMemories(limit:)` | 取得最近 N 筆記憶 |
-| `searchMemories(keyword:sessionId:limit:)` | 依關鍵字搜尋記憶，可選擇限定會話 |
-| `clearSessionMemory(sessionId:)` | 清除某個會話的所有記憶 |
-| `deleteExpiredMemories(olderThanDays:)` | 刪除超過指定天數的過期記憶 |
-| `close()` | 關閉資料庫連線 |
-
 | API (WWIntelligentAgentWithMemory) | 說明 |
 |---|---|
 | `init(agent:sessionId:historyPrefixWord:)` | 初始化含記憶功能的Agent |

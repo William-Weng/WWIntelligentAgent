@@ -17,7 +17,7 @@ open class WWIntelligentAgentWithMemory {
     private let currentSessionId: String
     private let historyPrefixWord: WWIntelligentAgent.HistoryPrefixWord
     
-    /// 初始化含記憶功能的Agent
+    /// [初始化含記憶功能的Agent](https://medium.com/技術筆記/ai-學習筆記-什麼是-rag-與-embedding-729efeb12f55)
     /// - Parameters:
     ///   - agent: Agent核心
     ///   - sessionId: 對話Id

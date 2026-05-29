@@ -65,19 +65,6 @@ If you are using Xcode, you can also add the GitHub repository through **File > 
 | `chat(to:)` | Sends a `prompt` to the model and returns a complete `response` |
 | `streamChat(to:)` | Sends a `prompt` to the model and returns a `streaming response` |
 
-| API (MemoryManager) | Description |
-|---|---|
-| `init(databaseName:tableName:)` | Creates a MemoryManager instance and specifies the database name and table name. |
-| `connect()` | Connects to the SQLite database. |
-| `createTableIfNotExists()` | Creates the memory table if it does not already exist. |
-| `saveMemory(sessionId:role:content:metadata:)` | Saves a single memory record. |
-| `memoryHistory(sessionId:limit:)` | Retrieves the memory history for a specified session. |
-| `recentMemories(limit:)` | Retrieves the most recent N memory records. |
-| `searchMemories(keyword:sessionId:limit:)` | Searches memories by keyword, optionally limited to a specific session. |
-| `clearSessionMemory(sessionId:)` | Clears all memories for a specific session. |
-| `deleteExpiredMemories(olderThanDays:)` | Deletes expired memories older than the specified number of days. |
-| `close()` | Closes the database connection. |
-
 | `API (WWIntelligentAgentWithMemory)` | Description |
 |---|---|
 | `init(agent:sessionId:historyPrefixWord:)` | Initializes an Agent with memory functionality. |
