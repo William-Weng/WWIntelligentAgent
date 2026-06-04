@@ -215,6 +215,14 @@ private extension MemoryViewController {
 }
 ```
 
+## 🧰 Available Tools
+
+| Tool | Version | Description |
+|---|---|---|
+| [`WWHttpFetchTool`](https://github.com/William-Weng/WWHttpFetchTool) | ![TAG](https://img.shields.io/github/v/tag/William-Weng/WWNtpClientTool)  | A lightweight HTTP request tool for sending network requests and retrieving response content as plain text, suitable for Apple Intelligence processing. |
+| [`WWTextReaderTool`](https://github.com/William-Weng/WWTextReaderTool) | ![TAG](https://img.shields.io/github/v/tag/William-Weng/WWNtpClientTool)  | A file reading tool that accesses files in the Documents directory and converts their contents into text input for Apple Intelligence. |
+| [`WWNtpClientTool`](https://github.com/William-Weng/WWNtpClientTool) | ![TAG](https://img.shields.io/github/v/tag/William-Weng/WWNtpClientTool)  | A network time query tool that retrieves accurate current time using NTP (Network Time Protocol). |
+
 ## 🚀 Notes
 
 The `Foundation Models` documentation is currently marked as Beta information, so API details and supported platform behavior may still change before the final system releases.
