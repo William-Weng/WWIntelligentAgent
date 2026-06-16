@@ -5,10 +5,12 @@
 //  Created by William.Weng on 2026/5/20.
 //
 
+#if canImport(FoundationModels)
 import Foundation
 import FoundationModels
 
 // MARK: - JSONSerialization
+@available(iOS 26.0, *)
 extension JSONSerialization {
     
     /// [JSONObject => JSON Data](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/利用-jsonserialization-印出美美縮排的-json-308c93b51643)
@@ -30,6 +32,7 @@ extension JSONSerialization {
 }
 
 // MARK: - Array
+@available(iOS 26.0, *)
 extension Array where Element == Float {
     
     /// 將 Float 陣列轉成 Data（二進位）
@@ -71,6 +74,7 @@ extension Data {
 }
 
 // MARK: - String
+@available(iOS 26.0, *)
 extension String {
     
     /// 驗證目前字串是否可作為語言模型使用的提示文字
@@ -105,6 +109,7 @@ extension String {
 }
 
 // MARK: - LanguageModelSession
+@available(iOS 26.0, *)
 extension LanguageModelSession {
     
     /// 送出經過驗證的提示文字，並回傳模型產生的結果
@@ -133,3 +138,5 @@ extension LanguageModelSession {
         try streamResponse(to: prompt.validatedPrompt(), options: optionType.value())
     }
 }
+
+#endif

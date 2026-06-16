@@ -5,11 +5,13 @@
 //  Created by William.Weng on 2026/5/27.
 //
 
+#if canImport(FoundationModels)
 import Foundation
 import FoundationModels
 import NaturalLanguage
 
 /// 整合記憶功能的 IntelligentAgent
+@available(iOS 26.0, *)
 open class WWIntelligentAgentWithMemory {
     
     private let agent: WWIntelligentAgent
@@ -43,6 +45,7 @@ open class WWIntelligentAgentWithMemory {
 }
 
 // MARK: - 公用工具
+@available(iOS 26.0, *)
 public extension WWIntelligentAgentWithMemory {
     
     /// 傳送提示文字給模型，並取得完整回應結果 + 自動保存User記憶
@@ -95,6 +98,7 @@ public extension WWIntelligentAgentWithMemory {
 }
 
 // MARK: - 小工具
+@available(iOS 26.0, *)
 private extension WWIntelligentAgentWithMemory {
     
     /// 設定SQLite資料庫
@@ -170,3 +174,5 @@ private extension WWIntelligentAgentWithMemory {
         return try await manager.findSimilarMemories(query: prompt, topK: similarLimit)
     }
 }
+
+#endif

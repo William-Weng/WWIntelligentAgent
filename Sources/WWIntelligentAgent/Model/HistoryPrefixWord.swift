@@ -5,9 +5,11 @@
 //  Created by William.Weng on 2026/5/29.
 //
 
+#if canImport(FoundationModels)
 import Foundation
 
 // MARK: - History Prefix Word
+@available(iOS 26.0, *)
 public extension WWIntelligentAgent {
     
     /// 定義對話歷史提示字 possu 的前綴用詞 => 用於組合 prompt 時，標示不同區塊的標題
@@ -30,3 +32,4 @@ public extension WWIntelligentAgent {
         }
     }
 }
+#endif

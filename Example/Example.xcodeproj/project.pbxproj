@@ -14,9 +14,12 @@
 		8145356B2FC813CB00861EF9 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8145356A2FC813CB00861EF9 /* WWIntelligentAgent */; };
 		814535712FC81F8B00861EF9 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 814535702FC81F8B00861EF9 /* WWIntelligentAgent */; };
 		814E3DE62FE1354000B4873A /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 814E3DE52FE1354000B4873A /* WWIntelligentAgent */; };
-		814E3DE92FE135B700B4873A /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 814E3DE82FE135B700B4873A /* WWIntelligentAgent */; };
 		8158438F2FC9392F00C7B915 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8158438E2FC9392F00C7B915 /* WWIntelligentAgent */; };
 		815843952FC9610000C7B915 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 815843942FC9610000C7B915 /* WWIntelligentAgent */; };
+		8168E4B62FE148F100F347C2 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8168E4B52FE148F100F347C2 /* WWIntelligentAgent */; };
+		8168E4B92FE149E200F347C2 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8168E4B82FE149E200F347C2 /* WWIntelligentAgent */; };
+		8168E4BC2FE149FD00F347C2 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8168E4BB2FE149FD00F347C2 /* WWIntelligentAgent */; };
+		8168E4BF2FE14A8A00F347C2 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 8168E4BE2FE14A8A00F347C2 /* WWIntelligentAgent */; };
 		819907912FC83F55005D6C98 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 819907902FC83F55005D6C98 /* WWIntelligentAgent */; };
 		81E4C2112FBD5CE6006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C2102FBD5CE6006CED91 /* WWIntelligentAgent */; };
 		81E4C22F2FBD65F2006CED91 /* WWIntelligentAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 81E4C22E2FBD65F2006CED91 /* WWIntelligentAgent */; };
@@ -59,11 +62,13 @@
 			files = (
 				81E4C22F2FBD65F2006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C2502FBD9FBF006CED91 /* WWIntelligentAgent in Frameworks */,
+				8168E4BC2FE149FD00F347C2 /* WWIntelligentAgent in Frameworks */,
 				8158438F2FC9392F00C7B915 /* WWIntelligentAgent in Frameworks */,
 				814535712FC81F8B00861EF9 /* WWIntelligentAgent in Frameworks */,
 				8145356B2FC813CB00861EF9 /* WWIntelligentAgent in Frameworks */,
 				814E3DE62FE1354000B4873A /* WWIntelligentAgent in Frameworks */,
 				8145355F2FC7EBA600861EF9 /* WWIntelligentAgent in Frameworks */,
+				8168E4BF2FE14A8A00F347C2 /* WWIntelligentAgent in Frameworks */,
 				81E4C2112FBD5CE6006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C24A2FBD9CF1006CED91 /* WWIntelligentAgent in Frameworks */,
 				81E4C2442FBD9BFF006CED91 /* WWIntelligentAgent in Frameworks */,
@@ -71,8 +76,9 @@
 				813B82722FC6FA7E00967533 /* WWIntelligentAgent in Frameworks */,
 				81E4C23E2FBD8E0A006CED91 /* WWIntelligentAgent in Frameworks */,
 				814535652FC7ED8500861EF9 /* WWIntelligentAgent in Frameworks */,
-				814E3DE92FE135B700B4873A /* WWIntelligentAgent in Frameworks */,
+				8168E4B62FE148F100F347C2 /* WWIntelligentAgent in Frameworks */,
 				813B826F2FC6F9B800967533 /* WWIntelligentAgent in Frameworks */,
+				8168E4B92FE149E200F347C2 /* WWIntelligentAgent in Frameworks */,
 				815843952FC9610000C7B915 /* WWIntelligentAgent in Frameworks */,
 				81E4C2352FBD68D2006CED91 /* WWIntelligentAgent in Frameworks */,
 			);
@@ -134,7 +140,10 @@
 				8158438E2FC9392F00C7B915 /* WWIntelligentAgent */,
 				815843942FC9610000C7B915 /* WWIntelligentAgent */,
 				814E3DE52FE1354000B4873A /* WWIntelligentAgent */,
-				814E3DE82FE135B700B4873A /* WWIntelligentAgent */,
+				8168E4B52FE148F100F347C2 /* WWIntelligentAgent */,
+				8168E4B82FE149E200F347C2 /* WWIntelligentAgent */,
+				8168E4BB2FE149FD00F347C2 /* WWIntelligentAgent */,
+				8168E4BE2FE14A8A00F347C2 /* WWIntelligentAgent */,
 			);
 			productName = Example;
 			productReference = 817EE1FE2EB1FA050036B57C /* Example.app */;
@@ -165,7 +174,7 @@
 			mainGroup = 817EE1F52EB1FA050036B57C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				814E3DE72FE135B700B4873A /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */,
+				8168E4BD2FE14A8A00F347C2 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 817EE1FF2EB1FA050036B57C /* Products */;
@@ -214,7 +223,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -248,7 +257,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -413,12 +422,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		814E3DE72FE135B700B4873A /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */ = {
+		8168E4BD2FE14A8A00F347C2 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWIntelligentAgent";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 1.3.1;
+				minimumVersion = 1.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -452,17 +461,29 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WWIntelligentAgent;
 		};
-		814E3DE82FE135B700B4873A /* WWIntelligentAgent */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 814E3DE72FE135B700B4873A /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */;
-			productName = WWIntelligentAgent;
-		};
 		8158438E2FC9392F00C7B915 /* WWIntelligentAgent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WWIntelligentAgent;
 		};
 		815843942FC9610000C7B915 /* WWIntelligentAgent */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WWIntelligentAgent;
+		};
+		8168E4B52FE148F100F347C2 /* WWIntelligentAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWIntelligentAgent;
+		};
+		8168E4B82FE149E200F347C2 /* WWIntelligentAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWIntelligentAgent;
+		};
+		8168E4BB2FE149FD00F347C2 /* WWIntelligentAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWIntelligentAgent;
+		};
+		8168E4BE2FE14A8A00F347C2 /* WWIntelligentAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8168E4BD2FE14A8A00F347C2 /* XCRemoteSwiftPackageReference "WWIntelligentAgent" */;
 			productName = WWIntelligentAgent;
 		};
 		819907902FC83F55005D6C98 /* WWIntelligentAgent */ = {

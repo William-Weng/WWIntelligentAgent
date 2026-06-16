@@ -5,9 +5,11 @@
 //  Created by William.Weng on 2026/5/20.
 //
 
+#if canImport(FoundationModels)
 import FoundationModels
 
 // MARK: - enum
+@available(iOS 26.0, *)
 public extension WWIntelligentAgent {
     
     /// 使用智慧代理時可能發生的錯誤
@@ -40,6 +42,7 @@ public extension WWIntelligentAgent {
 }
 
 // MARK: - OptionType
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.OptionType {
     
     /// 產生對應的生成模式選項
@@ -56,3 +59,5 @@ extension WWIntelligentAgent.OptionType {
         }
     }
 }
+
+#endif

@@ -5,11 +5,14 @@
 //  Created by William.Weng on 2026/5/20.
 //
 
+#if canImport(FoundationModels)
+
 import FoundationModels
 
 /// 一個簡單的智慧代理包裝器，用來管理 `LanguageModelSession` 的建立與對話流程
 ///
 /// 此類別負責保存模型、系統指令與工具設定，並提供一般回應與串流回應兩種呼叫方式
+@available(iOS 26.0, *)
 open class WWIntelligentAgent {
     
     public let model: SystemLanguageModel                   // 目前使用的系統語言模型
@@ -31,6 +34,7 @@ open class WWIntelligentAgent {
 }
 
 // MARK: - 公開函式
+@available(iOS 26.0, *)
 public extension WWIntelligentAgent {
     
     /// 設定系統指令與工具，並重新建立工作階段
@@ -76,6 +80,7 @@ public extension WWIntelligentAgent {
 }
 
 // MARK: - 小工具
+@available(iOS 26.0, *)
 private extension WWIntelligentAgent {
     
     /// 依照目前的模型、工具與系統指令重新建立工作階段
@@ -99,3 +104,5 @@ private extension WWIntelligentAgent {
         return session
     }
 }
+
+#endif

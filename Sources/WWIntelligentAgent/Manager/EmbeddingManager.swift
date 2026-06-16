@@ -5,11 +5,14 @@
 //  Created by William.Weng on 2026/5/28.
 //
 
+#if canImport(FoundationModels)
+
 import Foundation
 import NaturalLanguage
 import WWSQLite3Manager
 
 // MARK: - Memory Embedding Manager
+@available(iOS 26.0, *)
 extension WWIntelligentAgent {
     
     /// 管理對話記憶的向量嵌入（Embedding）計算與儲存
@@ -40,6 +43,7 @@ extension WWIntelligentAgent {
 }
 
 // MARK: - 小工具
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.EmbeddingManager {
         
     /// 將文字轉換為向量嵌入 => Float省資源
@@ -100,39 +104,4 @@ extension WWIntelligentAgent.EmbeddingManager {
     }
 }
 
-// MARK: - Memory Extension with Embedding
-//public extension WWIntelligentAgent.Memory {
-    
-    /// 將 Memory 轉為 Data（包含 embedding）
-    ///
-//    @MainActor
-//    var embeddingData: Data? {
-//        guard let embedding = self.embedding else { return nil }
-//        return WWIntelligentAgent.EmbeddingManager.shared.embeddingToData(embedding)
-//    }
-//}
-
-// MARK: - Usage Example
-/*
- // 新增對話時自動計算 Embedding
- let content = "你好，如何重設密碼？"
- let embedding = MemoryEmbeddingManager.shared.embed(content)
- 
- let memory = WWIntelligentAgent.Memory(
-     sessionId: "session_123",
-     role: "user",
-     content: content,
-     timestamp: Date(),
-     embedding: embedding
- )
- 
- // 寫入 SQLite
- try await db.insert(memory)
- 
- // 查詢時計算相似度
- let query = "密碼忘記怎麼辦"
- let queryVector = MemoryEmbeddingManager.shared.embed(query)
- 
- let storedVectors: [[Float]] = [...]  // 從資料庫讀取
- let results = MemoryEmbeddingManager.shared.batchCosineSimilarity(queryVector, storedVectors)
- */
+#endif

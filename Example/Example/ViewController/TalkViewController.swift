@@ -8,6 +8,7 @@
 import UIKit
 import WWIntelligentAgent
 
+@available(iOS 26.0, *)
 final class TalkViewController: UIViewController {
     
     @IBOutlet weak var inputTextView: UITextView!
@@ -32,6 +33,7 @@ final class TalkViewController: UIViewController {
     }
 }
 
+@available(iOS 26.0, *)
 private extension TalkViewController {
     
     func configure() {

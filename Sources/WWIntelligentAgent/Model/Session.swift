@@ -5,9 +5,11 @@
 //  Created by William.Weng on 2026/5/20.
 //
 
+#if canImport(FoundationModels)
 import FoundationModels
 
 // MARK: - Session
+@available(iOS 26.0, *)
 extension WWIntelligentAgent {
     
     /// 負責封裝 `LanguageModelSession` 的 actor
@@ -26,6 +28,7 @@ extension WWIntelligentAgent {
 }
 
 // MARK: - 公開工具
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.Session {
     
     /// 傳送提示文字給模型，並取得完整回應結果
@@ -50,3 +53,5 @@ extension WWIntelligentAgent.Session {
         try session.streamRespondSafely(to: prompt, optionType: optionType)
     }
 }
+
+#endif

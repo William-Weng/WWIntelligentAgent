@@ -8,6 +8,7 @@
 import UIKit
 import WWIntelligentAgent
 
+@available(iOS 26.0, *)
 final class MemoryViewController: UIViewController {
         
     @IBOutlet weak var inputTextView: UITextView!
@@ -45,6 +46,7 @@ final class MemoryViewController: UIViewController {
     }
 }
 
+@available(iOS 26.0, *)
 private extension MemoryViewController {
     
     func initMemory() {

@@ -5,10 +5,12 @@
 //  Created by William.Weng on 2026/5/27.
 //
 
+#if canImport(FoundationModels)
 import Foundation
 import WWSQLite3Manager
 
 // MARK: - Session
+@available(iOS 26.0, *)
 public extension WWIntelligentAgent {
     
     /// Agent 記憶模型（中期記憶：跨會話對話歷史）
@@ -25,6 +27,7 @@ public extension WWIntelligentAgent {
 }
 
 // MARK: - SchemeDelegate
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.Memory: WWSQLite3Manager.SchemeDelegate {
     
     public static func structure() -> [(key: String, type: WWSQLite3Manager.DataType)] {
@@ -40,3 +43,5 @@ extension WWIntelligentAgent.Memory: WWSQLite3Manager.SchemeDelegate {
         ]
     }
 }
+
+#endif

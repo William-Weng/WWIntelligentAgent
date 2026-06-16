@@ -5,11 +5,14 @@
 //  Created by William.Weng on 2026/5/27.
 //
 
+#if canImport(FoundationModels)
+
 import Foundation
 import WWSQLite3Manager
 import NaturalLanguage
 
 // MARK: - MemoryManager
+@available(iOS 26.0, *)
 extension WWIntelligentAgent {
     
     /// Agent 記憶管理器（中期記憶：SQLite 持久化）
@@ -39,6 +42,7 @@ extension WWIntelligentAgent {
 }
 
 // MARK: - Initialization
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.MemoryManager {
     
     /// 初始化並連接資料庫
@@ -55,6 +59,7 @@ extension WWIntelligentAgent.MemoryManager {
 }
 
 // MARK: - CRUD Operations
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.MemoryManager {
         
     /// 儲存單筆記憶
@@ -164,6 +169,7 @@ extension WWIntelligentAgent.MemoryManager {
 }
 
 // MARK: - 語意搜尋（Embedding）
+@available(iOS 26.0, *)
 extension WWIntelligentAgent.MemoryManager {
     
     /// 使用 Embedding 搜尋語意相似的記憶
@@ -210,6 +216,7 @@ extension WWIntelligentAgent.MemoryManager {
 }
 
 // MARK: - 小工具
+@available(iOS 26.0, *)
 private extension WWIntelligentAgent.MemoryManager {
     
     /// 取得某會話的記憶歷史（按時間順序）
@@ -268,3 +275,4 @@ private extension WWIntelligentAgent.MemoryManager {
     }
 }
 
+#endif
