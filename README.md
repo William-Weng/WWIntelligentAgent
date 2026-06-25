@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 將套件加入 `Package.swift`：
 
 ```swift
-.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.4.0")])
+.dependencies([.package(url: "https://github.com/William-Weng/WWIntelligentAgent.git", from: "1.4.1")])
 ```
 
 然後在 target 中加入：
@@ -64,12 +64,14 @@ https://github.com/user-attachments/assets/2898608e-e952-426f-9ef9-e9457a685be6
 | `configure(with:tools:optionType:)` | 設定系統指令與工具，並重新建立`工作階段` |
 | `chat(to:)` | 傳送`提示文字`給模型，並取得完整`回應結果` |
 | `streamChat(to:)` | 傳送`提示文字`給模型，並以`串流方式`取得回應結果 |
+| `stop()` | 停止模型工作階段 |
 
 | API (WWIntelligentAgentWithMemory) | 說明 |
 |---|---|
 | `init(agent:sessionId:historyPrefixWord:)` | 初始化含記憶功能的Agent |
 | `chat(to:limit:useSemanticSearch:similarLimit:)` | 傳送提示文字給模型，並取得完整回應結果，自動保存記憶 |
 | `streamChat(to:limit:useSemanticSearch:similarLimit:)` | 傳送提示文字給模型，以串流方式取得回應，並自動保存完整記憶 |
+| `stop()` | 停止模型工作階段 |
 | `saveAssistantMemory(_:)` | 儲存 AI 助理的對話記憶 |
 | `searchMemory(keyword:)` | 搜尋歷史對話記憶 |
 

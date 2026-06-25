@@ -77,6 +77,11 @@ public extension WWIntelligentAgent {
         let session = try findSession()
         return try await session.streamChat(to: prompt, optionType: optionType)
     }
+    
+    /// 停止模型工作階段
+    func stop() {
+        session = nil
+    }
 }
 
 // MARK: - 小工具

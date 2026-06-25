@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "WWIntelligentAgent", targets: ["WWIntelligentAgent"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/William-Weng/WWSQLite3Manager", .upToNextMinor(from: "2.4.0"))
+        .package(url: "https://github.com/William-Weng/WWSQLite3Manager", .upToNextMinor(from: "2.4.4"))
     ],
     targets: [
         .target(name: "WWIntelligentAgent",

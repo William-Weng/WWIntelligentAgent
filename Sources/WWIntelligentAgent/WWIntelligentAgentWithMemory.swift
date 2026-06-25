@@ -80,6 +80,11 @@ public extension WWIntelligentAgentWithMemory {
         return try await agent.streamChat(to: historyPrompt)
     }
     
+    /// 停止模型工作階段
+    func stop() {
+        agent.stop()
+    }
+    
     /// 儲存 AI 助理的對話記憶
     /// - Parameter content: AI 助理回應的完整文字內容
     /// - Throws: 當資料庫寫入失敗或工作階段無效時拋出錯誤

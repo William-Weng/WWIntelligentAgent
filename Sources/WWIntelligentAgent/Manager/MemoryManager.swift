@@ -82,7 +82,7 @@ extension WWIntelligentAgent.MemoryManager {
             (key: "sessionId", value: .string(sessionId)),
             (key: "role", value: .string("\(role)")),
             (key: "content", value: .string(content)),
-            (key: "timestamp", value: .date(Date.now)),
+            (key: "timestamp", value: .date(.now)),
             (key: "metadata", value: metadataValue),
             (key: "embedding", value: .data(embeddingData)),
         ]
